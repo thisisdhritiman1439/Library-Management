@@ -80,7 +80,7 @@ def signup(username, password, role):
 # ----------------------
 # Streamlit App
 # ----------------------
-st.set_page_config(page_title="Library System", page_icon="📚", layout="wide")
+st.set_page_config(page_title="Library System", page_icon="\ud83d\udcda", layout="wide")
 
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
@@ -92,14 +92,14 @@ if "role" not in st.session_state:
 if not st.session_state.logged_in:
     with st.container():
         st.markdown("""
-            <h1 style='text-align: center; color: #4CAF50;'>📚 Library Management System</h1>
+            <h1 style='text-align: center; color: #4CAF50;'>\ud83d\udcda Library Management System</h1>
             <h4 style='text-align: center;'>Login as Student or Librarian</h4>
             <hr>
         """, unsafe_allow_html=True)
 
         col1, col2 = st.columns(2)
         with col1:
-            st.subheader("🔐 Login")
+            st.subheader("\ud83d\udd10 Login")
             login_username = st.text_input("Username", key="login_user")
             login_password = st.text_input("Password", type="password", key="login_pass")
             if st.button("Login"):
@@ -113,7 +113,7 @@ if not st.session_state.logged_in:
                     st.error("Invalid credentials.")
 
         with col2:
-            st.subheader("📝 Sign Up")
+            st.subheader("\ud83d\udcdd Sign Up")
             signup_username = st.text_input("New Username", key="signup_user")
             signup_password = st.text_input("New Password", type="password", key="signup_pass")
             role = st.selectbox("Role", ["student", "admin"])
@@ -136,11 +136,11 @@ if st.session_state.logged_in:
     menu = st.sidebar.radio("Menu", menu_options)
 
     if menu == "View Books":
-        st.header("📘 All Books")
+        st.header("\ud83d\udcd8 All Books")
         st.dataframe(books_df)
 
     elif menu == "Add Book":
-        st.header("➕ Add Book")
+        st.header("\u2795 Add Book")
         bid = st.number_input("Book ID", min_value=1, step=1)
         title = st.text_input("Title")
         author = st.text_input("Author")
@@ -165,7 +165,7 @@ if st.session_state.logged_in:
                     st.success("Book added.")
 
     elif menu == "Delete Book":
-        st.header("❌ Delete Book")
+        st.header("\u274c Delete Book")
         bid = st.selectbox("Select Book ID", books_df["bid"])
         if st.button("Delete"):
             books_df = books_df[books_df["bid"] != bid]
@@ -173,7 +173,7 @@ if st.session_state.logged_in:
             st.success("Book deleted.")
 
     elif menu == "Issue Book":
-        st.header("📤 Issue Book")
+        st.header("\ud83d\udce4 Issue Book")
         available_books = books_df[books_df["status"] == "available"]
         if available_books.empty:
             st.info("No books available.")
@@ -192,7 +192,7 @@ if st.session_state.logged_in:
                 st.success(f"Book issued to {student} (Due: {due})")
 
     elif menu == "Return Book":
-        st.header("📥 Return Book")
+        st.header("\ud83d\udce5 Return Book")
         if st.session_state.role == "admin":
             issued_books = books_df[books_df["status"] == "issued"]
         else:
@@ -218,7 +218,7 @@ if st.session_state.logged_in:
                     st.success("Book returned on time.")
 
     elif menu == "View Issued Books":
-        st.header("📋 Issued Books")
+        st.header("\ud83d\udccb Issued Books")
         if st.session_state.role == "admin":
             issued = books_df[books_df["status"] == "issued"]
         else:
