@@ -1,19 +1,35 @@
 import streamlit as st
 import pandas as pd
 import os
+import json
 
-# File path
-DATA_FILE = "Books_data - Sheet1.csv"
+# File paths
+DATA_FILE = "books_data.json"
+ISSUE_FILE = "issued_books.csv"
 
-# Load or initialize the dataset
+# Load or initialize the dataset from JSON
+
 def load_data():
     if os.path.exists(DATA_FILE):
-        return pd.read_csv(DATA_FILE)
+        with open(DATA_FILE, "r") as f:
+            data = json.load(f)
+        return pd.DataFrame(data)
     else:
         return pd.DataFrame(columns=["bid", "title", "author", "available"])
 
 def save_data(df):
-    df.to_csv(DATA_FILE, index=False)
+    with open(DATA_FILE, "w") as f:
+        json.dump(df.to_dict(orient="records"), f, indent=4)
+
+# Load or initialize issued data from CSV
+def load_issued_data():
+    if os.path.exists(ISSUE_FILE):
+        return pd.read_csv(ISSUE_FILE)
+    else:
+        return pd.DataFrame(columns=["bid", "student"])
+
+def save_issued_data(df):
+    df.to_csv(ISSUE_FILE, index=False)
 
 # ---------------------------------------------
 # Streamlit App Interface
@@ -21,9 +37,10 @@ def save_data(df):
 st.set_page_config(page_title="Library Management System", page_icon="📚", layout="wide")
 st.title("📚 ProjectGurukul Library Management System")
 
-menu = st.sidebar.selectbox("Select Action", ["View Books", "Add Book", "Delete Book", "Issue Book", "Return Book"])
+menu = st.sidebar.selectbox("Select Action", ["View Books", "Add Book", "Delete Book", "Issue Book", "Return Book", "View Issued Books"])
 
 books_df = load_data()
+issued_df = load_issued_data()
 
 # ---------------------------------------------
 # View Books
@@ -86,6 +103,10 @@ elif menu == "Issue Book":
             if books_df.at[book_index, "available"] == "YES":
                 books_df.at[book_index, "available"] = "NO"
                 save_data(books_df)
+
+                issued_df = pd.concat([issued_df, pd.DataFrame([[bid, student]], columns=["bid", "student"])] , ignore_index=True)
+                save_issued_data(issued_df)
+
                 st.success(f"Book issued to {student} successfully!")
             else:
                 st.warning("Book is not available.")
@@ -105,8 +126,22 @@ elif menu == "Return Book":
             if books_df.at[book_index, "available"] == "NO":
                 books_df.at[book_index, "available"] = "YES"
                 save_data(books_df)
+
+                issued_df = issued_df[issued_df["bid"] != bid]
+                save_issued_data(issued_df)
+
                 st.success("Book returned successfully!")
             else:
                 st.warning("Book is already available.")
         else:
             st.error("Book ID does not exist.")
+
+# ---------------------------------------------
+# View Issued Books
+# ---------------------------------------------
+elif menu == "View Issued Books":
+    st.header("📋 Issued Books")
+    if not issued_df.empty:
+        st.dataframe(issued_df)
+    else:
+        st.info("No books currently issued.")
