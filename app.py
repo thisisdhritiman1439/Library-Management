@@ -79,12 +79,6 @@ def signup(username, password, role):
 # ----------------------
 st.set_page_config(page_title="Library System", page_icon="📚", layout="wide")
 
-st.markdown("""
-    <h1 style='text-align: center; color: #4CAF50;'>📚 Library Management System</h1>
-    <h4 style='text-align: center;'>Login as Student or Librarian</h4>
-    <hr>
-""", unsafe_allow_html=True)
-
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
@@ -92,34 +86,39 @@ if "username" not in st.session_state:
 if "role" not in st.session_state:
     st.session_state.role = ""
 
-# ----------------------
-# Login / Signup
-# ----------------------
 if not st.session_state.logged_in:
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        st.subheader("🔐 Login")
-        login_username = st.text_input("Username", key="login_user")
-        login_password = st.text_input("Password", type="password", key="login_pass")
-        if st.button("Login"):
-            role = login(login_username, login_password)
-            if role:
-                st.session_state.logged_in = True
-                st.session_state.username = login_username
-                st.session_state.role = role
-                st.experimental_rerun()
-            else:
-                st.error("Invalid credentials.")
-    with col2:
-        st.subheader("📝 Sign Up")
-        signup_username = st.text_input("New Username", key="signup_user")
-        signup_password = st.text_input("New Password", type="password", key="signup_pass")
-        role = st.selectbox("Role", ["student", "admin"])
-        if st.button("Sign Up"):
-            if signup(signup_username, signup_password, role):
-                st.success("Account created. Please log in.")
-            else:
-                st.warning("Username already exists.")
+    with st.container():
+        st.markdown("""
+            <h1 style='text-align: center; color: #4CAF50;'>📚 Library Management System</h1>
+            <h4 style='text-align: center;'>Login as Student or Librarian</h4>
+            <hr>
+        """, unsafe_allow_html=True)
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("🔐 Login")
+            login_username = st.text_input("Username", key="login_user")
+            login_password = st.text_input("Password", type="password", key="login_pass")
+            if st.button("Login"):
+                role = login(login_username, login_password)
+                if role:
+                    st.session_state.logged_in = True
+                    st.session_state.username = login_username
+                    st.session_state.role = role
+                    st.experimental_rerun()
+                else:
+                    st.error("Invalid credentials.")
+
+        with col2:
+            st.subheader("📝 Sign Up")
+            signup_username = st.text_input("New Username", key="signup_user")
+            signup_password = st.text_input("New Password", type="password", key="signup_pass")
+            role = st.selectbox("Role", ["student", "admin"])
+            if st.button("Sign Up"):
+                if signup(signup_username, signup_password, role):
+                    st.success("Account created. Please log in.")
+                else:
+                    st.warning("Username already exists.")
 
 # ----------------------
 # Main Dashboard
