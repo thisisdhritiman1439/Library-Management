@@ -3,6 +3,7 @@ import pandas as pd
 import os
 import json
 import datetime
+import hashlib
 
 # ----------------------
 # File Paths
@@ -44,84 +45,104 @@ def save_users(users):
         json.dump(users, f, indent=4)
 
 # ----------------------
+# Password Hashing
+# ----------------------
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
+# ----------------------
 # Authentication
 # ----------------------
 def login(username, password):
     users = load_users()
+    hashed = hash_password(password)
     for user in users:
-        if user["username"] == username and user["password"] == password:
-            return True
-    return False
+        if user["username"] == username and user["password"] == hashed:
+            return user["role"]
+    return None
 
-def signup(username, password):
+def signup(username, password, role):
     users = load_users()
     for user in users:
         if user["username"] == username:
             return False  # User exists
-    users.append({"username": username, "password": password})
+    users.append({
+        "username": username,
+        "password": hash_password(password),
+        "role": role
+    })
     save_users(users)
     return True
 
 # ----------------------
-# Main App Interface
+# Streamlit App
 # ----------------------
 st.set_page_config(page_title="Library System", page_icon="📚", layout="wide")
-st.title("📚 Library Management System (with Login)")
 
-# ----------------------
-# Session State: Auth
-# ----------------------
+st.markdown("""
+    <h1 style='text-align: center; color: #4CAF50;'>📚 Library Management System</h1>
+    <h4 style='text-align: center;'>Login as Student or Librarian</h4>
+    <hr>
+""", unsafe_allow_html=True)
+
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
     st.session_state.username = ""
+if "role" not in st.session_state:
+    st.session_state.role = ""
 
 # ----------------------
-# Login / Signup Forms
+# Login / Signup
 # ----------------------
 if not st.session_state.logged_in:
-    option = st.radio("Login or Sign Up", ["Login", "Sign Up"])
-
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-
-    if option == "Login":
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        st.subheader("🔐 Login")
+        login_username = st.text_input("Username", key="login_user")
+        login_password = st.text_input("Password", type="password", key="login_pass")
         if st.button("Login"):
-            if login(username, password):
+            role = login(login_username, login_password)
+            if role:
                 st.session_state.logged_in = True
-                st.session_state.username = username
-                st.success("Logged in successfully!")
+                st.session_state.username = login_username
+                st.session_state.role = role
                 st.experimental_rerun()
             else:
                 st.error("Invalid credentials.")
-    else:
+    with col2:
+        st.subheader("📝 Sign Up")
+        signup_username = st.text_input("New Username", key="signup_user")
+        signup_password = st.text_input("New Password", type="password", key="signup_pass")
+        role = st.selectbox("Role", ["student", "admin"])
         if st.button("Sign Up"):
-            if signup(username, password):
-                st.success("Account created. You can now log in.")
+            if signup(signup_username, signup_password, role):
+                st.success("Account created. Please log in.")
             else:
                 st.warning("Username already exists.")
 
 # ----------------------
-# Main Library Dashboard
+# Main Dashboard
 # ----------------------
 if st.session_state.logged_in:
-
     books_df = load_books()
-    menu = st.sidebar.radio("Menu", ["View Books", "Add Book", "Delete Book", "Issue Book", "Return Book", "View Issued Books", "Logout"])
 
-    # View Books
+    menu_options = ["View Books", "Issue Book", "Return Book", "View Issued Books", "Logout"]
+    if st.session_state.role == "admin":
+        menu_options = ["View Books", "Add Book", "Delete Book", "Issue Book", "Return Book", "View Issued Books", "Logout"]
+
+    menu = st.sidebar.radio("Menu", menu_options)
+
     if menu == "View Books":
         st.header("📘 All Books")
         st.dataframe(books_df)
 
-    # Add Book
     elif menu == "Add Book":
         st.header("➕ Add Book")
         bid = st.number_input("Book ID", min_value=1, step=1)
         title = st.text_input("Title")
         author = st.text_input("Author")
         category = st.text_input("Category")
-
         if st.button("Add Book"):
             if bid and title and author and category:
                 if bid in books_df["bid"].values:
@@ -140,90 +161,75 @@ if st.session_state.logged_in:
                     books_df = pd.concat([books_df, new_book], ignore_index=True)
                     save_books(books_df)
                     st.success("Book added.")
-            else:
-                st.warning("Fill all fields.")
 
-    # Delete Book
     elif menu == "Delete Book":
         st.header("❌ Delete Book")
-        bid = st.selectbox("Select Book ID to Delete", options=books_df["bid"])
-
+        bid = st.selectbox("Select Book ID", books_df["bid"])
         if st.button("Delete"):
             books_df = books_df[books_df["bid"] != bid]
             save_books(books_df)
             st.success("Book deleted.")
 
-    # Issue Book
     elif menu == "Issue Book":
         st.header("📤 Issue Book")
         available_books = books_df[books_df["status"] == "available"]
-
         if available_books.empty:
             st.info("No books available.")
         else:
-            bid = st.selectbox(
-                "Select Book",
-                options=available_books["bid"],
-                format_func=lambda x: f"{x} - {available_books[available_books['bid'] == x]['title'].values[0]}"
-            )
-            student = st.text_input("Student Name")
-
+            bid = st.selectbox("Select Book", available_books["bid"], format_func=lambda x: f"{x} - {available_books[available_books['bid'] == x]['title'].values[0]}")
+            student = st.session_state.username if st.session_state.role == "student" else st.text_input("Student Name")
             if st.button("Issue Book"):
                 idx = books_df[books_df["bid"] == bid].index[0]
-                books_df.at[idx, "status"] = "issued"
-                books_df.at[idx, "issued_to"] = student
                 today = datetime.date.today()
                 due = today + datetime.timedelta(days=7)
+                books_df.at[idx, "status"] = "issued"
+                books_df.at[idx, "issued_to"] = student
                 books_df.at[idx, "issue_date"] = str(today)
                 books_df.at[idx, "due_date"] = str(due)
                 save_books(books_df)
-                st.success(f"Issued to {student} (Due: {due})")
+                st.success(f"Book issued to {student} (Due: {due})")
 
-    # Return Book
     elif menu == "Return Book":
         st.header("📥 Return Book")
-        issued_books = books_df[books_df["status"] == "issued"]
+        if st.session_state.role == "admin":
+            issued_books = books_df[books_df["status"] == "issued"]
+        else:
+            issued_books = books_df[(books_df["status"] == "issued") & (books_df["issued_to"] == st.session_state.username)]
 
         if issued_books.empty:
             st.info("No issued books.")
         else:
-            bid = st.selectbox(
-                "Select Book",
-                options=issued_books["bid"],
-                format_func=lambda x: f"{x} - {issued_books[issued_books['bid'] == x]['title'].values[0]} (to {issued_books[issued_books['bid'] == x]['issued_to'].values[0]})"
-            )
-
+            bid = st.selectbox("Select Book to Return", issued_books["bid"], format_func=lambda x: f"{x} - {issued_books[issued_books['bid'] == x]['title'].values[0]}")
             if st.button("Return Book"):
                 idx = books_df[books_df["bid"] == bid].index[0]
                 today = datetime.date.today()
                 due_date = datetime.date.fromisoformat(books_df.at[idx, "due_date"])
-                days_late = (today - due_date).days
-                fine = days_late * 5 if days_late > 0 else 0
-
+                fine = max(0, (today - due_date).days * 5)
                 books_df.at[idx, "status"] = "available"
                 books_df.at[idx, "issued_to"] = ""
                 books_df.at[idx, "issue_date"] = ""
                 books_df.at[idx, "due_date"] = ""
                 save_books(books_df)
-
                 if fine > 0:
                     st.warning(f"Returned late! Fine: ₹{fine}")
                 else:
                     st.success("Book returned on time.")
 
-    # View Issued Books
     elif menu == "View Issued Books":
         st.header("📋 Issued Books")
-        issued = books_df[books_df["status"] == "issued"]
+        if st.session_state.role == "admin":
+            issued = books_df[books_df["status"] == "issued"]
+        else:
+            issued = books_df[(books_df["status"] == "issued") & (books_df["issued_to"] == st.session_state.username)]
+
         if issued.empty:
-            st.info("No books are issued.")
+            st.info("No books issued.")
         else:
             st.dataframe(issued[["bid", "title", "author", "category", "issued_to", "issue_date", "due_date"]])
 
-    # Logout
     elif menu == "Logout":
         st.session_state.logged_in = False
         st.session_state.username = ""
+        st.session_state.role = ""
         st.success("Logged out.")
         st.experimental_rerun()
-
