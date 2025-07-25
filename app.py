@@ -147,16 +147,7 @@ if st.session_state.logged_in:
                 if bid in books_df["bid"].values:
                     st.error("Book ID already exists.")
                 else:
-                    new_book = pd.DataFrame([{
-                        "bid": bid,
-                        "title": title,
-                        "author": author,
-                        "category": category,
-                        "status": "available",
-                        "issued_to": "",
-                        "issue_date": "",
-                        "due_date": ""
-                    }])
+                    new_book = pd.DataFrame([{ "bid": bid, "title": title, "author": author, "category": category, "status": "available", "issued_to": "", "issue_date": "", "due_date": "" }])
                     books_df = pd.concat([books_df, new_book], ignore_index=True)
                     save_books(books_df)
                     st.success("Book added.")
@@ -170,7 +161,7 @@ if st.session_state.logged_in:
             st.success("Book deleted.")
 
     elif menu == "Issue Book":
-        st.header("📤 Issue Book")
+        st.header("📄 Issue Book")
         available_books = books_df[books_df["status"] == "available"]
         if available_books.empty:
             st.info("No books available.")
@@ -189,7 +180,7 @@ if st.session_state.logged_in:
                 st.success(f"Book issued to {student} (Due: {due})")
 
     elif menu == "Return Book":
-        st.header("📥 Return Book")
+        st.header("📅 Return Book")
         if st.session_state.role == "admin":
             issued_books = books_df[books_df["status"] == "issued"]
         else:
