@@ -33,12 +33,12 @@ if 'user' not in st.session_state:
 # Sign up function
 def signup():
     st.subheader("Sign Up")
-    name = st.text_input("Full Name")
-    email = st.text_input("Email")
-    mobile = st.text_input("Mobile Number")
-    password = st.text_input("Password", type="password")
-    role = st.selectbox("Select Role", ["Student", "Librarian", "Other"])
-    if st.button("Create Account"):
+    name = st.text_input("Full Name", key="signup_name")
+    email = st.text_input("Email", key="signup_email")
+    mobile = st.text_input("Mobile Number", key="signup_mobile")
+    password = st.text_input("Password", type="password", key="signup_password")
+    role = st.selectbox("Select Role", ["Student", "Librarian", "Other"], key="signup_role")
+    if st.button("Create Account", key="signup_btn"):
         users = load_json(USERS_FILE)
         if any(u['email'] == email for u in users):
             st.error("User already exists.")
@@ -50,9 +50,9 @@ def signup():
 # Login function
 def login():
     st.subheader("Login")
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
-    if st.button("Login"):
+    email = st.text_input("Email", key="login_email")
+    password = st.text_input("Password", type="password", key="login_password")
+    if st.button("Login", key="login_btn"):
         users = load_json(USERS_FILE)
         user = next((u for u in users if u['email'] == email and u['password'] == password), None)
         if user:
@@ -72,7 +72,7 @@ def view_books():
             st.write(f"**Index**: {book['index']}")
             st.write(f"**Availability**: {'Available' if book['available'] else 'Issued'}")
             if st.session_state.user and st.session_state.user['role'] != 'Librarian':
-                if st.button(f"Add to My List - {book['id']}"):
+                if st.button(f"Add to My List - {book['id']}", key=f"fav_{book['id']}"):
                     favorites = load_json(FAVORITES_FILE)
                     favorites.append({"email": st.session_state.user['email'], "book_id": book['id']})
                     save_json(FAVORITES_FILE, favorites)
@@ -84,12 +84,12 @@ def add_book():
         st.warning("Only librarians can add books.")
         return
     st.subheader("Add New Book")
-    title = st.text_input("Title")
-    author = st.text_input("Author")
-    description = st.text_area("Description")
-    index = st.text_area("Index Page")
-    cover = st.text_input("Cover Image URL")
-    if st.button("Add Book"):
+    title = st.text_input("Title", key="add_title")
+    author = st.text_input("Author", key="add_author")
+    description = st.text_area("Description", key="add_description")
+    index = st.text_area("Index Page", key="add_index")
+    cover = st.text_input("Cover Image URL", key="add_cover")
+    if st.button("Add Book", key="add_book_btn"):
         books = load_json(BOOKS_FILE)
         books.append({"id": generate_id(books), "title": title, "author": author,
                       "description": description, "index": index,
@@ -108,7 +108,7 @@ def issue_books():
     for fav in my_list:
         book = next((b for b in books if b['id'] == fav['book_id']), None)
         if book and book['available']:
-            if st.button(f"Issue {book['title']}"):
+            if st.button(f"Issue {book['title']}", key=f"issue_{book['id']}"):
                 book['available'] = False
                 deadline = (datetime.date.today() + datetime.timedelta(days=7)).isoformat()
                 issued.append({"email": email, "book_id": book['id'],
@@ -129,7 +129,7 @@ def return_books():
     for item in my_issues:
         book = next((b for b in books if b['id'] == item['book_id']), None)
         if book:
-            if st.button(f"Return {book['title']}"):
+            if st.button(f"Return {book['title']}", key=f"return_{book['id']}"):
                 book['available'] = True
                 issued.remove(item)
                 save_json(BOOKS_FILE, books)
@@ -157,7 +157,7 @@ def delete_book():
     st.subheader("Delete Books")
     books = load_json(BOOKS_FILE)
     for book in books:
-        if st.button(f"Delete {book['title']}"):
+        if st.button(f"Delete {book['title']}", key=f"delete_{book['id']}"):
             books.remove(book)
             save_json(BOOKS_FILE, books)
             st.success("Book deleted.")
