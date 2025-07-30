@@ -1,93 +1,542 @@
 [
-  {
-    "id": 1,
-    "title": "To Kill a Mockingbird",
-    "author": "Harper Lee",
-    "description": "A novel about the serious issues of rape and racial inequality.",
-    "index": "1. The Trial\n2. Atticus Finch\n3. The Verdict",
-    "cover": "https://covers.openlibrary.org/b/id/8225261-L.jpg",
-    "available": true
-  },
-  {
-    "id": 2,
-    "title": "1984",
-    "author": "George Orwell",
-    "description": "Dystopian novel set in a totalitarian society under constant surveillance.",
-    "index": "1. Big Brother\n2. Ministry of Truth\n3. Thoughtcrime",
-    "cover": "https://covers.openlibrary.org/b/id/7222246-L.jpg",
-    "available": true
-  },
-  {
-    "id": 3,
-    "title": "Pride and Prejudice",
-    "author": "Jane Austen",
-    "description": "A romantic novel that critiques the British landed gentry at the end of the 18th century.",
-    "index": "1. The Bennets\n2. Mr. Darcy\n3. Social Class",
-    "cover": "https://covers.openlibrary.org/b/id/8091016-L.jpg",
-    "available": true
-  },
-  {
-    "id": 4,
-    "title": "The Great Gatsby",
-    "author": "F. Scott Fitzgerald",
-    "description": "A critique of the American Dream set in the Jazz Age.",
-    "index": "1. Nick Carraway\n2. Gatsby’s Parties\n3. The Green Light",
-    "cover": "https://covers.openlibrary.org/b/id/7352168-L.jpg",
-    "available": true
-  },
-  {
-    "id": 5,
-    "title": "Moby-Dick",
-    "author": "Herman Melville",
-    "description": "The voyage of the whaling ship Pequod and its captain's obsession.",
-    "index": "1. Call Me Ishmael\n2. The White Whale\n3. The Chase",
-    "cover": "https://covers.openlibrary.org/b/id/8231856-L.jpg",
-    "available": true
-  },
-  {
-    "id": 6,
-    "title": "The Catcher in the Rye",
-    "author": "J.D. Salinger",
-    "description": "A story about adolescent alienation and loss of innocence.",
-    "index": "1. Holden Caulfield\n2. The Museum\n3. The Carousel",
-    "cover": "https://covers.openlibrary.org/b/id/8228691-L.jpg",
-    "available": true
-  },
-  {
-    "id": 7,
-    "title": "Jane Eyre",
-    "author": "Charlotte Brontë",
-    "description": "The life of an orphan girl from childhood to adulthood.",
-    "index": "1. Lowood School\n2. Thornfield Hall\n3. Mr. Rochester",
-    "cover": "https://covers.openlibrary.org/b/id/8235104-L.jpg",
-    "available": true
-  },
-  {
-    "id": 8,
-    "title": "The Hobbit",
-    "author": "J.R.R. Tolkien",
-    "description": "A fantasy adventure following Bilbo Baggins.",
-    "index": "1. An Unexpected Journey\n2. Smaug\n3. Battle of Five Armies",
-    "cover": "https://covers.openlibrary.org/b/id/6979861-L.jpg",
-    "available": true
-  },
-  {
-    "id": 9,
-    "title": "Fahrenheit 451",
-    "author": "Ray Bradbury",
-    "description": "A future American society where books are outlawed.",
-    "index": "1. The Hearth and the Salamander\n2. Burning Bright\n3. The Phoenix",
-    "cover": "https://covers.openlibrary.org/b/id/7222247-L.jpg",
-    "available": true
-  },
-  {
-    "id": 10,
-    "title": "The Alchemist",
-    "author": "Paulo Coelho",
-    "description": "A young shepherd's journey to find treasure and his destiny.",
-    "index": "1. Santiago’s Dream\n2. The Desert\n3. The Alchemist",
-    "cover": "https://covers.openlibrary.org/b/id/8231855-L.jpg",
-    "available": true
-  }
-  // ... continue this pattern up to 100
+    {
+        "id": 1,
+        "title": "Little Women",
+        "author": "Louisa May Alcott",
+        "description": "A timeless classic by Louisa May Alcott, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000001-L.jpg",
+        "available": true
+    },
+    {
+        "id": 2,
+        "title": "Emma",
+        "author": "Jane Austen",
+        "description": "A timeless classic by Jane Austen, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000002-L.jpg",
+        "available": true
+    },
+    {
+        "id": 3,
+        "title": "Pride and Prejudice",
+        "author": "Jane Austen",
+        "description": "A timeless classic by Jane Austen, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000003-L.jpg",
+        "available": true
+    },
+    {
+        "id": 4,
+        "title": "Sense and Sensibility",
+        "author": "Jane Austen",
+        "description": "A timeless classic by Jane Austen, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000004-L.jpg",
+        "available": true
+    },
+    {
+        "id": 5,
+        "title": "The Wonderful Wizard of Oz",
+        "author": "L. Frank Baum",
+        "description": "A timeless classic by L. Frank Baum, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000005-L.jpg",
+        "available": true
+    },
+    {
+        "id": 6,
+        "title": "Lorna Doone",
+        "author": "R. D. Blackmore",
+        "description": "A timeless classic by R. D. Blackmore, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000006-L.jpg",
+        "available": true
+    },
+    {
+        "id": 7,
+        "title": "Jane Eyre",
+        "author": "Charlotte Bront\u00eb",
+        "description": "A timeless classic by Charlotte Bront\u00eb, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000007-L.jpg",
+        "available": true
+    },
+    {
+        "id": 8,
+        "title": "Wuthering Heights",
+        "author": "Emily Bront\u00eb",
+        "description": "A timeless classic by Emily Bront\u00eb, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000008-L.jpg",
+        "available": true
+    },
+    {
+        "id": 9,
+        "title": "Little Lord Fauntleroy",
+        "author": "Frances Hodgson Burnett",
+        "description": "A timeless classic by Frances Hodgson Burnett, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000009-L.jpg",
+        "available": true
+    },
+    {
+        "id": 10,
+        "title": "The Secret Garden",
+        "author": "Frances Hodgson Burnett",
+        "description": "A timeless classic by Frances Hodgson Burnett, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000010-L.jpg",
+        "available": true
+    },
+    {
+        "id": 11,
+        "title": "Tales from the Arabian Nights",
+        "author": "Richard Francis Burton",
+        "description": "A timeless classic by Richard Francis Burton, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000011-L.jpg",
+        "available": true
+    },
+    {
+        "id": 12,
+        "title": "Alice's Adventures in Wonderland",
+        "author": "Lewis Carroll",
+        "description": "A timeless classic by Lewis Carroll, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000012-L.jpg",
+        "available": true
+    },
+    {
+        "id": 13,
+        "title": "Through the Looking-Glass",
+        "author": "Lewis Carroll",
+        "description": "A timeless classic by Lewis Carroll, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000013-L.jpg",
+        "available": true
+    },
+    {
+        "id": 14,
+        "title": "Don Quixote",
+        "author": "Miguel de Cervantes",
+        "description": "A timeless classic by Miguel de Cervantes, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000014-L.jpg",
+        "available": true
+    },
+    {
+        "id": 15,
+        "title": "The Man Who Was Thursday",
+        "author": "G. K. Chesterton",
+        "description": "A timeless classic by G. K. Chesterton, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000015-L.jpg",
+        "available": true
+    },
+    {
+        "id": 16,
+        "title": "The Napoleon of Notting Hill",
+        "author": "G. K. Chesterton",
+        "description": "A timeless classic by G. K. Chesterton, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000016-L.jpg",
+        "available": true
+    },
+    {
+        "id": 17,
+        "title": "The Awakening",
+        "author": "Kate Chopin",
+        "description": "A timeless classic by Kate Chopin, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000017-L.jpg",
+        "available": true
+    },
+    {
+        "id": 18,
+        "title": "The Moonstone",
+        "author": "Wilkie Collins",
+        "description": "A timeless classic by Wilkie Collins, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000018-L.jpg",
+        "available": true
+    },
+    {
+        "id": 19,
+        "title": "The Woman in White",
+        "author": "Wilkie Collins",
+        "description": "A timeless classic by Wilkie Collins, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000019-L.jpg",
+        "available": true
+    },
+    {
+        "id": 20,
+        "title": "Heart of Darkness",
+        "author": "Joseph Conrad",
+        "description": "A timeless classic by Joseph Conrad, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000020-L.jpg",
+        "available": true
+    },
+    {
+        "id": 21,
+        "title": "Lord Jim",
+        "author": "Joseph Conrad",
+        "description": "A timeless classic by Joseph Conrad, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000021-L.jpg",
+        "available": true
+    },
+    {
+        "id": 22,
+        "title": "The Deerslayer",
+        "author": "James Fenimore Cooper",
+        "description": "A timeless classic by James Fenimore Cooper, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000022-L.jpg",
+        "available": true
+    },
+    {
+        "id": 23,
+        "title": "The Last of the Mohicans",
+        "author": "James Fenimore Cooper",
+        "description": "A timeless classic by James Fenimore Cooper, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000023-L.jpg",
+        "available": true
+    },
+    {
+        "id": 24,
+        "title": "The Red Badge of Courage",
+        "author": "Stephen Crane",
+        "description": "A timeless classic by Stephen Crane, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000024-L.jpg",
+        "available": true
+    },
+    {
+        "id": 25,
+        "title": "Moll Flanders",
+        "author": "Daniel Defoe",
+        "description": "A timeless classic by Daniel Defoe, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000025-L.jpg",
+        "available": true
+    },
+    {
+        "id": 26,
+        "title": "Robinson Crusoe",
+        "author": "Daniel Defoe",
+        "description": "A timeless classic by Daniel Defoe, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000026-L.jpg",
+        "available": true
+    },
+    {
+        "id": 27,
+        "title": "Bleak House",
+        "author": "Charles Dickens",
+        "description": "A timeless classic by Charles Dickens, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000027-L.jpg",
+        "available": true
+    },
+    {
+        "id": 28,
+        "title": "A Christmas Carol",
+        "author": "Charles Dickens",
+        "description": "A timeless classic by Charles Dickens, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000028-L.jpg",
+        "available": true
+    },
+    {
+        "id": 29,
+        "title": "David Copperfield",
+        "author": "Charles Dickens",
+        "description": "A timeless classic by Charles Dickens, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000029-L.jpg",
+        "available": true
+    },
+    {
+        "id": 30,
+        "title": "Great Expectations",
+        "author": "Charles Dickens",
+        "description": "A timeless classic by Charles Dickens, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000030-L.jpg",
+        "available": true
+    },
+    {
+        "id": 31,
+        "title": "Oliver Twist",
+        "author": "Charles Dickens",
+        "description": "A timeless classic by Charles Dickens, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000031-L.jpg",
+        "available": true
+    },
+    {
+        "id": 32,
+        "title": "A Tale of Two Cities",
+        "author": "Charles Dickens",
+        "description": "A timeless classic by Charles Dickens, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000032-L.jpg",
+        "available": true
+    },
+    {
+        "id": 33,
+        "title": "The Brothers Karamazov",
+        "author": "Fyodor Dostoevsky",
+        "description": "A timeless classic by Fyodor Dostoevsky, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000033-L.jpg",
+        "available": true
+    },
+    {
+        "id": 34,
+        "title": "Crime and Punishment",
+        "author": "Fyodor Dostoevsky",
+        "description": "A timeless classic by Fyodor Dostoevsky, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000034-L.jpg",
+        "available": true
+    },
+    {
+        "id": 35,
+        "title": "The Adventures of Sherlock Holmes",
+        "author": "Arthur Conan Doyle",
+        "description": "A timeless classic by Arthur Conan Doyle, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000035-L.jpg",
+        "available": true
+    },
+    {
+        "id": 36,
+        "title": "The Hound of the Baskervilles",
+        "author": "Arthur Conan Doyle",
+        "description": "A timeless classic by Arthur Conan Doyle, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000036-L.jpg",
+        "available": true
+    },
+    {
+        "id": 37,
+        "title": "The Count of Monte Cristo",
+        "author": "Alexandre Dumas",
+        "description": "A timeless classic by Alexandre Dumas, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000037-L.jpg",
+        "available": true
+    },
+    {
+        "id": 38,
+        "title": "The Man in the Iron Mask",
+        "author": "Alexandre Dumas",
+        "description": "A timeless classic by Alexandre Dumas, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000038-L.jpg",
+        "available": true
+    },
+    {
+        "id": 39,
+        "title": "Middlemarch",
+        "author": "George Eliot",
+        "description": "A timeless classic by George Eliot, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000039-L.jpg",
+        "available": true
+    },
+    {
+        "id": 40,
+        "title": "Silas Marner",
+        "author": "George Eliot",
+        "description": "A timeless classic by George Eliot, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000040-L.jpg",
+        "available": true
+    },
+    {
+        "id": 41,
+        "title": "Allan Quatermain",
+        "author": "H. Rider Haggard",
+        "description": "A timeless classic by H. Rider Haggard, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000041-L.jpg",
+        "available": true
+    },
+    {
+        "id": 42,
+        "title": "King Solomon's Mines",
+        "author": "H. Rider Haggard",
+        "description": "A timeless classic by H. Rider Haggard, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000042-L.jpg",
+        "available": true
+    },
+    {
+        "id": 43,
+        "title": "Far from the Madding Crowd",
+        "author": "Thomas Hardy",
+        "description": "A timeless classic by Thomas Hardy, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000043-L.jpg",
+        "available": true
+    },
+    {
+        "id": 44,
+        "title": "Tess of the d'Urbervilles",
+        "author": "Thomas Hardy",
+        "description": "A timeless classic by Thomas Hardy, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000044-L.jpg",
+        "available": true
+    },
+    {
+        "id": 45,
+        "title": "The Scarlet Letter",
+        "author": "Nathaniel Hawthorne",
+        "description": "A timeless classic by Nathaniel Hawthorne, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000045-L.jpg",
+        "available": true
+    },
+    {
+        "id": 46,
+        "title": "The Odyssey",
+        "author": "Homer",
+        "description": "A timeless classic by Homer, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000046-L.jpg",
+        "available": true
+    },
+    {
+        "id": 47,
+        "title": "The Prince",
+        "author": "Niccol\u00f2 Machiavelli",
+        "description": "A timeless classic by Niccol\u00f2 Machiavelli, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000047-L.jpg",
+        "available": true
+    },
+    {
+        "id": 48,
+        "title": "Moby-Dick",
+        "author": "Herman Melville",
+        "description": "A timeless classic by Herman Melville, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000048-L.jpg",
+        "available": true
+    },
+    {
+        "id": 49,
+        "title": "Utopia",
+        "author": "Thomas More",
+        "description": "A timeless classic by Thomas More, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000049-L.jpg",
+        "available": true
+    },
+    {
+        "id": 50,
+        "title": "Ivanhoe",
+        "author": "Walter Scott",
+        "description": "A timeless classic by Walter Scott, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000050-L.jpg",
+        "available": true
+    },
+    {
+        "id": 51,
+        "title": "Waverley",
+        "author": "Walter Scott",
+        "description": "A timeless classic by Walter Scott, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000051-L.jpg",
+        "available": true
+    },
+    {
+        "id": 52,
+        "title": "Anna Karenina",
+        "author": "Leo Tolstoy",
+        "description": "A timeless classic by Leo Tolstoy, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000052-L.jpg",
+        "available": true
+    },
+    {
+        "id": 53,
+        "title": "War and Peace",
+        "author": "Leo Tolstoy",
+        "description": "A timeless classic by Leo Tolstoy, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000053-L.jpg",
+        "available": true
+    },
+    {
+        "id": 54,
+        "title": "Black Beauty",
+        "author": "Anna Sewell",
+        "description": "A timeless classic by Anna Sewell, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000054-L.jpg",
+        "available": true
+    },
+    {
+        "id": 55,
+        "title": "Dracula",
+        "author": "Bram Stoker",
+        "description": "A timeless classic by Bram Stoker, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000055-L.jpg",
+        "available": true
+    },
+    {
+        "id": 56,
+        "title": "Strange Case of Dr Jekyll and Mr Hyde",
+        "author": "Robert Louis Stevenson",
+        "description": "A timeless classic by Robert Louis Stevenson, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000056-L.jpg",
+        "available": true
+    },
+    {
+        "id": 57,
+        "title": "Kidnapped",
+        "author": "Robert Louis Stevenson",
+        "description": "A timeless classic by Robert Louis Stevenson, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000057-L.jpg",
+        "available": true
+    },
+    {
+        "id": 58,
+        "title": "Uncle Tom's Cabin",
+        "author": "Harriet Beecher Stowe",
+        "description": "A timeless classic by Harriet Beecher Stowe, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000058-L.jpg",
+        "available": true
+    },
+    {
+        "id": 59,
+        "title": "Gulliver's Travels",
+        "author": "Jonathan Swift",
+        "description": "A timeless classic by Jonathan Swift, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000059-L.jpg",
+        "available": true
+    },
+    {
+        "id": 60,
+        "title": "Vanity Fair",
+        "author": "William Makepeace Thackeray",
+        "description": "A timeless classic by William Makepeace Thackeray, exploring themes of society, humanity, and imagination.",
+        "index": "1. Introduction\n2. Main Chapters\n3. Climax\n4. Conclusion",
+        "cover": "https://covers.openlibrary.org/b/id/7000060-L.jpg",
+        "available": true
+    }
 ]
