@@ -1,429 +1,902 @@
 [
-  {
-    "bid": 1,
-    "title": "Steve Jobs",
-    "author": "Walter Issacson",
-    "category": "Biography",
-    "status": "issued"
-  },
-  {
-    "bid": 2,
-    "title": "Discovery of India",
-    "author": "Jawaharlal Nehru",
-    "category": "History",
-    "status": "issued"
-  },
-  {
-    "bid": 3,
-    "title": "My Experiments with Truth",
-    "author": "Mahatma Gandhi",
-    "category": "Autobiography",
-    "status": "issued"
-  },
-  {
-    "bid": 4,
-    "title": "Object Oriented Programming with C++",
-    "author": "E Balagurusamy",
-    "category": "Education",
-    "status": "issued"
-  },
-  {
-    "bid": 5,
-    "title": "Thinking with type",
-    "author": "Ellen Lupton",
-    "category": "Arts",
-    "status": "issued"
-  },
-  {
-    "bid": 6,
-    "title": "The Photographer's",
-    "author": "Lindsay Adler",
-    "category": "Photography",
-    "status": "issued"
-  },
-  {
-    "bid": 7,
-    "title": "Think and Grow",
-    "author": "Napoleon Hill",
-    "category": "Economics",
-    "status": "issued"
-  },
-  {
-    "bid": 8,
-    "title": "The Fifth Discipline : The Art",
-    "author": "Peter M.Senge",
-    "category": "Management",
-    "status": "issued"
-  },
-  {
-    "bid": 9,
-    "title": "A Theory of Justice",
-    "author": "John Rawls",
-    "category": "Law",
-    "status": "issued"
-  },
-  {
-    "bid": 10,
-    "title": "Eat to Live",
-    "author": "Joel Fuhrman",
-    "category": "Health",
-    "status": "issued"
-  },
-  {
-    "bid": 11,
-    "title": "City of Heavenly Fire",
-    "author": "Cassandra Clare",
-    "category": "Fiction",
-    "status": "available"
-  },
-  {
-    "bid": 12,
-    "title": "Da Vinci Code",
-    "author": "Dan Brown",
-    "category": "Fiction",
-    "status": "available"
-  },
-  {
-    "bid": 13,
-    "title": "War and Peace",
-    "author": "Leo Tolstoy",
-    "category": "Philosophical fiction",
-    "status": "issued"
-  },
-  {
-    "bid": 14,
-    "title": "Python For All",
-    "author": "John Shovic",
-    "category": "Education",
-    "status": "available"
-  },
-  {
-    "bid": 15,
-    "title": "Automate The Boring Stuff With Python",
-    "author": "Al Sweigart",
-    "category": "Education",
-    "status": "available"
-  },
-  {
-    "bid": 16,
-    "title": "Wings Of Fire",
-    "author": "APJ Abdul Kalam",
-    "category": "Autobiography",
-    "status": "available"
-  },
-  {
-    "bid": 17,
-    "title": "Ikigai",
-    "author": "Hector Garcia",
-    "category": "Personal Development",
-    "status": "available"
-  },
-  {
-    "bid": 18,
-    "title": "Who Will Cry When You Will Die",
-    "author": "Robin Sharma",
-    "category": "Personal Development",
-    "status": "available"
-  },
-  {
-    "bid": 19,
-    "title": "Rich Dad Poor Dad",
-    "author": "Robert T. Kiyosaki",
-    "category": "Business",
-    "status": "available"
-  },
-  {
-    "bid": 20,
-    "title": "Immortals of Meluha",
-    "author": "Amish Tirpathi",
-    "category": "High Fantasy",
-    "status": "available"
-  },
-  {
-    "bid": 21,
-    "title": "A Brief History Of Time",
-    "author": "Stephen Hawking",
-    "category": "SPACE",
-    "status": "issued"
-  },
-  {
-    "bid": 22,
-    "title": "I Know Why The Cage Bird Sings",
-    "author": "Maya Anguelo",
-    "category": "Story",
-    "status": "available"
-  },
-  {
-    "bid": 23,
-    "title": "Lord Of Files",
-    "author": "William Golding",
-    "category": "Fiction",
-    "status": "issued"
-  },
-  {
-    "bid": 24,
-    "title": "Loara Dune",
-    "author": "R. D Blackmore",
-    "category": "Fiction",
-    "status": "issued"
-  },
-  {
-    "bid": 25,
-    "title": "Jamacia Inn",
-    "author": "Daphne",
-    "category": "Fiction",
-    "status": "issued"
-  },
-  {
-    "bid": 26,
-    "title": "Kidnapped",
-    "author": "Robert Louis",
-    "category": "Fiction",
-    "status": "available"
-  },
-  {
-    "bid": 27,
-    "title": "Treasure Island",
-    "author": "Robert Louis",
-    "category": "Fiction",
-    "status": "available"
-  },
-  {
-    "bid": 28,
-    "title": "The Call Of Wild",
-    "author": "Jack London",
-    "category": "Fiction",
-    "status": "available"
-  },
-  {
-    "bid": 29,
-    "title": "Charlottes Web",
-    "author": "E. B White",
-    "category": "Fiction",
-    "status": "available"
-  },
-  {
-    "bid": 30,
-    "title": "The Wind In Willows",
-    "author": "Kenneth Grahame",
-    "category": "Fiction",
-    "status": "available"
-  },
-  {
-    "bid": 31,
-    "title": "Being and Time",
-    "author": "Martin Heldegger",
-    "category": "Philosophy",
-    "status": "available"
-  },
-  {
-    "bid": 32,
-    "title": "The Republic",
-    "author": "Rocha Pereia",
-    "category": "Philosophy",
-    "status": "issued"
-  },
-  {
-    "bid": 33,
-    "title": "Critique For Pure Reason",
-    "author": "Paul Guyer",
-    "category": "Philosophy",
-    "status": "available"
-  },
-  {
-    "bid": 34,
-    "title": "The Prince",
-    "author": "Rufus Godwin",
-    "category": "Philosophy",
-    "status": "available"
-  },
-  {
-    "bid": 35,
-    "title": "Ethics",
-    "author": "Stuart Hampshire",
-    "category": "Philosophy",
-    "status": "available"
-  },
-  {
-    "bid": 36,
-    "title": "Long Walk To Freedom",
-    "author": "Nelson Mandela",
-    "category": "Autobiography",
-    "status": "available"
-  },
-  {
-    "bid": 37,
-    "title": "The Dairy Of Young Girl",
-    "author": "Anne Frank",
-    "category": "Autobiography",
-    "status": "available"
-  },
-  {
-    "bid": 38,
-    "title": "Mark Twain",
-    "author": "Mark Twain",
-    "category": "Autobiography",
-    "status": "available"
-  },
-  {
-    "bid": 39,
-    "title": "Mein Kampf",
-    "author": "Adolf Hitler",
-    "category": "Autobiography",
-    "status": "available"
-  },
-  {
-    "bid": 40,
-    "title": "Freakonomics",
-    "author": "Steveb D.Levit",
-    "category": "Economics",
-    "status": "issued"
-  },
-  {
-    "bid": 41,
-    "title": "Thinking Fast and Slow",
-    "author": "Daniel Kahneman",
-    "category": "Economics",
-    "status": "available"
-  },
-  {
-    "bid": 42,
-    "title": "Tell You About Capitalism",
-    "author": "HA-Joon Chang",
-    "category": "Economics",
-    "status": "available"
-  },
-  {
-    "bid": 43,
-    "title": "Animal Spirits",
-    "author": "Akerlof and Shiller",
-    "category": "Economics",
-    "status": "available"
-  },
-  {
-    "bid": 44,
-    "title": "The Black Swan",
-    "author": "Nassim Nicholas Taleb",
-    "category": "Economics",
-    "status": "issued"
-  },
-  {
-    "bid": 45,
-    "title": "1984",
-    "author": "George Orwell",
-    "category": "Story",
-    "status": "available"
-  },
-  {
-    "bid": 46,
-    "title": "The Lord Of Wings",
-    "author": "J.R.R.Tolken",
-    "category": "Story",
-    "status": "issued"
-  },
-  {
-    "bid": 47,
-    "title": "Kite Runner",
-    "author": "Khaled Hosseini",
-    "category": "Story",
-    "status": "available"
-  },
-  {
-    "bid": 48,
-    "title": "Harry Potter",
-    "author": "J.K.Rowling",
-    "category": "Story",
-    "status": "available"
-  },
-  {
-    "bid": 49,
-    "title": "The Book Theif",
-    "author": "Markus Zusak",
-    "category": "Story",
-    "status": "available"
-  },
-  {
-    "bid": 50,
-    "title": "History Of 20th Century",
-    "author": "Martin Gilbert",
-    "category": "History",
-    "status": "available"
-  },
-  {
-    "bid": 51,
-    "title": "Guns,Germs,and Steel",
-    "author": "Jared Daimond",
-    "category": "History",
-    "status": "issued"
-  },
-  {
-    "bid": 52,
-    "title": "A World lit Only by Fire",
-    "author": "William Manchestar",
-    "category": "History",
-    "status": "issued"
-  },
-  {
-    "bid": 53,
-    "title": "The Crusades",
-    "author": "Thomas Asbridge",
-    "category": "History",
-    "status": "available"
-  },
-  {
-    "bid": 54,
-    "title": "Over The Edge Of The World",
-    "author": "Laurence",
-    "category": "History",
-    "status": "available"
-  },
-  {
-    "bid": 55,
-    "title": "A Beautiful Mind",
-    "author": "Sylvia Nasar",
-    "category": "Biography",
-    "status": "available"
-  },
-  {
-    "bid": 56,
-    "title": "The Enigma",
-    "author": "Andrew Hodges",
-    "category": "Biography",
-    "status": "available"
-  },
-  {
-    "bid": 57,
-    "title": "Alexander Hamilton",
-    "author": "Ron Chernow",
-    "category": "Biography",
-    "status": "available"
-  },
-  {
-    "bid": 58,
-    "title": "Barracoon",
-    "author": "Zora Neale Hurston",
-    "category": "Biography",
-    "status": "available"
-  },
-  {
-    "bid": 59,
-    "title": "CHURCHILL : A Life",
-    "author": "MArtin Glibert",
-    "category": "Biography",
-    "status": "available"
-  },
-  {
-    "bid": 60,
-    "title": "A Tale of Two Cities",
-    "author": "Charles Dickens",
-    "category": "Historical novel",
-    "status": "issued"
-  },
-  {
-    "bid": 61,
-    "title": "Les Misérables",
-    "author": "Victor Hugo",
-    "category": "Historical fiction",
-    "status": "available"
-  }
+    {
+        "id": 1,
+        "title": "Sample Book 1",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 1. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000001-L.jpg",
+        "available": true
+    },
+    {
+        "id": 2,
+        "title": "Sample Book 2",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 2. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000002-L.jpg",
+        "available": true
+    },
+    {
+        "id": 3,
+        "title": "Sample Book 3",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 3. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000003-L.jpg",
+        "available": true
+    },
+    {
+        "id": 4,
+        "title": "Sample Book 4",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 4. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000004-L.jpg",
+        "available": true
+    },
+    {
+        "id": 5,
+        "title": "Sample Book 5",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 5. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000005-L.jpg",
+        "available": true
+    },
+    {
+        "id": 6,
+        "title": "Sample Book 6",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 6. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000006-L.jpg",
+        "available": true
+    },
+    {
+        "id": 7,
+        "title": "Sample Book 7",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 7. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000007-L.jpg",
+        "available": true
+    },
+    {
+        "id": 8,
+        "title": "Sample Book 8",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 8. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000008-L.jpg",
+        "available": true
+    },
+    {
+        "id": 9,
+        "title": "Sample Book 9",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 9. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000009-L.jpg",
+        "available": true
+    },
+    {
+        "id": 10,
+        "title": "Sample Book 10",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 10. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000010-L.jpg",
+        "available": true
+    },
+    {
+        "id": 11,
+        "title": "Sample Book 11",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 11. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000011-L.jpg",
+        "available": true
+    },
+    {
+        "id": 12,
+        "title": "Sample Book 12",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 12. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000012-L.jpg",
+        "available": true
+    },
+    {
+        "id": 13,
+        "title": "Sample Book 13",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 13. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000013-L.jpg",
+        "available": true
+    },
+    {
+        "id": 14,
+        "title": "Sample Book 14",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 14. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000014-L.jpg",
+        "available": true
+    },
+    {
+        "id": 15,
+        "title": "Sample Book 15",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 15. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000015-L.jpg",
+        "available": true
+    },
+    {
+        "id": 16,
+        "title": "Sample Book 16",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 16. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000016-L.jpg",
+        "available": true
+    },
+    {
+        "id": 17,
+        "title": "Sample Book 17",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 17. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000017-L.jpg",
+        "available": true
+    },
+    {
+        "id": 18,
+        "title": "Sample Book 18",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 18. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000018-L.jpg",
+        "available": true
+    },
+    {
+        "id": 19,
+        "title": "Sample Book 19",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 19. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000019-L.jpg",
+        "available": true
+    },
+    {
+        "id": 20,
+        "title": "Sample Book 20",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 20. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000020-L.jpg",
+        "available": true
+    },
+    {
+        "id": 21,
+        "title": "Sample Book 21",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 21. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000021-L.jpg",
+        "available": true
+    },
+    {
+        "id": 22,
+        "title": "Sample Book 22",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 22. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000022-L.jpg",
+        "available": true
+    },
+    {
+        "id": 23,
+        "title": "Sample Book 23",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 23. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000023-L.jpg",
+        "available": true
+    },
+    {
+        "id": 24,
+        "title": "Sample Book 24",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 24. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000024-L.jpg",
+        "available": true
+    },
+    {
+        "id": 25,
+        "title": "Sample Book 25",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 25. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000025-L.jpg",
+        "available": true
+    },
+    {
+        "id": 26,
+        "title": "Sample Book 26",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 26. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000026-L.jpg",
+        "available": true
+    },
+    {
+        "id": 27,
+        "title": "Sample Book 27",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 27. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000027-L.jpg",
+        "available": true
+    },
+    {
+        "id": 28,
+        "title": "Sample Book 28",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 28. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000028-L.jpg",
+        "available": true
+    },
+    {
+        "id": 29,
+        "title": "Sample Book 29",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 29. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000029-L.jpg",
+        "available": true
+    },
+    {
+        "id": 30,
+        "title": "Sample Book 30",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 30. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000030-L.jpg",
+        "available": true
+    },
+    {
+        "id": 31,
+        "title": "Sample Book 31",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 31. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000031-L.jpg",
+        "available": true
+    },
+    {
+        "id": 32,
+        "title": "Sample Book 32",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 32. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000032-L.jpg",
+        "available": true
+    },
+    {
+        "id": 33,
+        "title": "Sample Book 33",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 33. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000033-L.jpg",
+        "available": true
+    },
+    {
+        "id": 34,
+        "title": "Sample Book 34",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 34. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000034-L.jpg",
+        "available": true
+    },
+    {
+        "id": 35,
+        "title": "Sample Book 35",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 35. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000035-L.jpg",
+        "available": true
+    },
+    {
+        "id": 36,
+        "title": "Sample Book 36",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 36. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000036-L.jpg",
+        "available": true
+    },
+    {
+        "id": 37,
+        "title": "Sample Book 37",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 37. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000037-L.jpg",
+        "available": true
+    },
+    {
+        "id": 38,
+        "title": "Sample Book 38",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 38. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000038-L.jpg",
+        "available": true
+    },
+    {
+        "id": 39,
+        "title": "Sample Book 39",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 39. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000039-L.jpg",
+        "available": true
+    },
+    {
+        "id": 40,
+        "title": "Sample Book 40",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 40. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000040-L.jpg",
+        "available": true
+    },
+    {
+        "id": 41,
+        "title": "Sample Book 41",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 41. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000041-L.jpg",
+        "available": true
+    },
+    {
+        "id": 42,
+        "title": "Sample Book 42",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 42. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000042-L.jpg",
+        "available": true
+    },
+    {
+        "id": 43,
+        "title": "Sample Book 43",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 43. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000043-L.jpg",
+        "available": true
+    },
+    {
+        "id": 44,
+        "title": "Sample Book 44",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 44. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000044-L.jpg",
+        "available": true
+    },
+    {
+        "id": 45,
+        "title": "Sample Book 45",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 45. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000045-L.jpg",
+        "available": true
+    },
+    {
+        "id": 46,
+        "title": "Sample Book 46",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 46. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000046-L.jpg",
+        "available": true
+    },
+    {
+        "id": 47,
+        "title": "Sample Book 47",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 47. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000047-L.jpg",
+        "available": true
+    },
+    {
+        "id": 48,
+        "title": "Sample Book 48",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 48. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000048-L.jpg",
+        "available": true
+    },
+    {
+        "id": 49,
+        "title": "Sample Book 49",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 49. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000049-L.jpg",
+        "available": true
+    },
+    {
+        "id": 50,
+        "title": "Sample Book 50",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 50. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000050-L.jpg",
+        "available": true
+    },
+    {
+        "id": 51,
+        "title": "Sample Book 51",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 51. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000051-L.jpg",
+        "available": true
+    },
+    {
+        "id": 52,
+        "title": "Sample Book 52",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 52. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000052-L.jpg",
+        "available": true
+    },
+    {
+        "id": 53,
+        "title": "Sample Book 53",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 53. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000053-L.jpg",
+        "available": true
+    },
+    {
+        "id": 54,
+        "title": "Sample Book 54",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 54. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000054-L.jpg",
+        "available": true
+    },
+    {
+        "id": 55,
+        "title": "Sample Book 55",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 55. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000055-L.jpg",
+        "available": true
+    },
+    {
+        "id": 56,
+        "title": "Sample Book 56",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 56. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000056-L.jpg",
+        "available": true
+    },
+    {
+        "id": 57,
+        "title": "Sample Book 57",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 57. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000057-L.jpg",
+        "available": true
+    },
+    {
+        "id": 58,
+        "title": "Sample Book 58",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 58. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000058-L.jpg",
+        "available": true
+    },
+    {
+        "id": 59,
+        "title": "Sample Book 59",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 59. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000059-L.jpg",
+        "available": true
+    },
+    {
+        "id": 60,
+        "title": "Sample Book 60",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 60. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000060-L.jpg",
+        "available": true
+    },
+    {
+        "id": 61,
+        "title": "Sample Book 61",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 61. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000061-L.jpg",
+        "available": true
+    },
+    {
+        "id": 62,
+        "title": "Sample Book 62",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 62. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000062-L.jpg",
+        "available": true
+    },
+    {
+        "id": 63,
+        "title": "Sample Book 63",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 63. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000063-L.jpg",
+        "available": true
+    },
+    {
+        "id": 64,
+        "title": "Sample Book 64",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 64. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000064-L.jpg",
+        "available": true
+    },
+    {
+        "id": 65,
+        "title": "Sample Book 65",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 65. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000065-L.jpg",
+        "available": true
+    },
+    {
+        "id": 66,
+        "title": "Sample Book 66",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 66. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000066-L.jpg",
+        "available": true
+    },
+    {
+        "id": 67,
+        "title": "Sample Book 67",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 67. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000067-L.jpg",
+        "available": true
+    },
+    {
+        "id": 68,
+        "title": "Sample Book 68",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 68. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000068-L.jpg",
+        "available": true
+    },
+    {
+        "id": 69,
+        "title": "Sample Book 69",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 69. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000069-L.jpg",
+        "available": true
+    },
+    {
+        "id": 70,
+        "title": "Sample Book 70",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 70. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000070-L.jpg",
+        "available": true
+    },
+    {
+        "id": 71,
+        "title": "Sample Book 71",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 71. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000071-L.jpg",
+        "available": true
+    },
+    {
+        "id": 72,
+        "title": "Sample Book 72",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 72. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000072-L.jpg",
+        "available": true
+    },
+    {
+        "id": 73,
+        "title": "Sample Book 73",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 73. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000073-L.jpg",
+        "available": true
+    },
+    {
+        "id": 74,
+        "title": "Sample Book 74",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 74. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000074-L.jpg",
+        "available": true
+    },
+    {
+        "id": 75,
+        "title": "Sample Book 75",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 75. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000075-L.jpg",
+        "available": true
+    },
+    {
+        "id": 76,
+        "title": "Sample Book 76",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 76. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000076-L.jpg",
+        "available": true
+    },
+    {
+        "id": 77,
+        "title": "Sample Book 77",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 77. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000077-L.jpg",
+        "available": true
+    },
+    {
+        "id": 78,
+        "title": "Sample Book 78",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 78. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000078-L.jpg",
+        "available": true
+    },
+    {
+        "id": 79,
+        "title": "Sample Book 79",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 79. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000079-L.jpg",
+        "available": true
+    },
+    {
+        "id": 80,
+        "title": "Sample Book 80",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 80. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000080-L.jpg",
+        "available": true
+    },
+    {
+        "id": 81,
+        "title": "Sample Book 81",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 81. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000081-L.jpg",
+        "available": true
+    },
+    {
+        "id": 82,
+        "title": "Sample Book 82",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 82. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000082-L.jpg",
+        "available": true
+    },
+    {
+        "id": 83,
+        "title": "Sample Book 83",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 83. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000083-L.jpg",
+        "available": true
+    },
+    {
+        "id": 84,
+        "title": "Sample Book 84",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 84. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000084-L.jpg",
+        "available": true
+    },
+    {
+        "id": 85,
+        "title": "Sample Book 85",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 85. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000085-L.jpg",
+        "available": true
+    },
+    {
+        "id": 86,
+        "title": "Sample Book 86",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 86. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000086-L.jpg",
+        "available": true
+    },
+    {
+        "id": 87,
+        "title": "Sample Book 87",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 87. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000087-L.jpg",
+        "available": true
+    },
+    {
+        "id": 88,
+        "title": "Sample Book 88",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 88. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000088-L.jpg",
+        "available": true
+    },
+    {
+        "id": 89,
+        "title": "Sample Book 89",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 89. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000089-L.jpg",
+        "available": true
+    },
+    {
+        "id": 90,
+        "title": "Sample Book 90",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 90. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000090-L.jpg",
+        "available": true
+    },
+    {
+        "id": 91,
+        "title": "Sample Book 91",
+        "author": "Author 2",
+        "description": "This is a description for Sample Book 91. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000091-L.jpg",
+        "available": true
+    },
+    {
+        "id": 92,
+        "title": "Sample Book 92",
+        "author": "Author 3",
+        "description": "This is a description for Sample Book 92. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000092-L.jpg",
+        "available": true
+    },
+    {
+        "id": 93,
+        "title": "Sample Book 93",
+        "author": "Author 4",
+        "description": "This is a description for Sample Book 93. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000093-L.jpg",
+        "available": true
+    },
+    {
+        "id": 94,
+        "title": "Sample Book 94",
+        "author": "Author 5",
+        "description": "This is a description for Sample Book 94. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000094-L.jpg",
+        "available": true
+    },
+    {
+        "id": 95,
+        "title": "Sample Book 95",
+        "author": "Author 6",
+        "description": "This is a description for Sample Book 95. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000095-L.jpg",
+        "available": true
+    },
+    {
+        "id": 96,
+        "title": "Sample Book 96",
+        "author": "Author 7",
+        "description": "This is a description for Sample Book 96. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000096-L.jpg",
+        "available": true
+    },
+    {
+        "id": 97,
+        "title": "Sample Book 97",
+        "author": "Author 8",
+        "description": "This is a description for Sample Book 97. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000097-L.jpg",
+        "available": true
+    },
+    {
+        "id": 98,
+        "title": "Sample Book 98",
+        "author": "Author 9",
+        "description": "This is a description for Sample Book 98. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000098-L.jpg",
+        "available": true
+    },
+    {
+        "id": 99,
+        "title": "Sample Book 99",
+        "author": "Author 10",
+        "description": "This is a description for Sample Book 99. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000099-L.jpg",
+        "available": true
+    },
+    {
+        "id": 100,
+        "title": "Sample Book 100",
+        "author": "Author 1",
+        "description": "This is a description for Sample Book 100. It is a fictional entry used for testing.",
+        "index": "1. Chapter One\n2. Chapter Two\n3. Chapter Three",
+        "cover": "https://covers.openlibrary.org/b/id/7000100-L.jpg",
+        "available": true
+    }
 ]
