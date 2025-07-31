@@ -1,201 +1,201 @@
-# 📚 Library Management System with Streamlit
-
 import streamlit as st
 import json
 import os
 from datetime import datetime, timedelta
 
-# ===================== JSON FILE PATHS =====================
-BOOKS_FILE = 'books.json'
-USERS_FILE = 'users.json'
-ISSUED_FILE = 'issued_books.json'
+# --------------------------- Utility Functions --------------------------- #
 
-# ===================== LOAD & SAVE =====================
-def load_json(file):
-    try:
-        with open(file, 'r') as f:
-            return json.load(f)
-    except (json.decoder.JSONDecodeError, FileNotFoundError):
-        return []
-
-def save_json(file, data):
-    with open(file, 'w') as f:
-        json.dump(data, f, indent=4)
-
-# ===================== INITIAL DATA =====================
 def load_data():
-    return load_json(BOOKS_FILE), load_json(USERS_FILE), load_json(ISSUED_FILE)
+    try:
+        with open("books.json") as f:
+            books = json.load(f)
+    except:
+        books = []
+
+    try:
+        with open("users.json") as f:
+            users = json.load(f)
+    except:
+        users = []
+
+    try:
+        with open("issued_books.json") as f:
+            issued = json.load(f)
+    except:
+        issued = []
+
+    return books, users, issued
 
 def save_data(books, users, issued):
-    save_json(BOOKS_FILE, books)
-    save_json(USERS_FILE, users)
-    save_json(ISSUED_FILE, issued)
+    with open("books.json", "w") as f:
+        json.dump(books, f, indent=4)
+    with open("users.json", "w") as f:
+        json.dump(users, f, indent=4)
+    with open("issued_books.json", "w") as f:
+        json.dump(issued, f, indent=4)
 
-# ===================== USER AUTH =====================
-def signup(users):
-    st.subheader("Create a New Account")
-    name = st.text_input("Full Name")
-    mobile = st.text_input("Mobile Number")
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
-    role = st.selectbox("Select Role", ["Student", "Librarian", "Other"])
-    if st.button("Sign Up"):
-        if any(u['email'] == email for u in users):
-            st.error("Email already exists.")
-        else:
-            users.append({"name": name, "mobile": mobile, "email": email, "password": password, "role": role, "book_list": []})
-            save_json(USERS_FILE, users)
-            st.success("Account created! Please login.")
+# --------------------------- Main Application --------------------------- #
 
-
-# ===================== LOGIN =====================
 def login(users):
-    st.subheader("Login")
+    st.subheader("🔐 Login")
     email = st.text_input("Email")
     password = st.text_input("Password", type="password")
     if st.button("Login"):
-        for u in users:
-            if u['email'] == email and u['password'] == password:
-                st.session_state['user'] = u
-                st.success(f"Welcome {u['name']} ({u['role']})")
-                return True
+        for user in users:
+            if user["email"] == email and user["password"] == password:
+                st.success(f"Welcome {user['name']} ({user['role']})!")
+                return user
         st.error("Invalid credentials")
-    return False
+    return None
 
-# ===================== BOOK VIEW =====================
-def view_books(books, current_user):
-    st.subheader("📚 All Books")
+def signup(users):
+    st.subheader("📝 Sign Up")
+    name = st.text_input("Name")
+    mobile = st.text_input("Mobile")
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
+    role = st.selectbox("Role", ["Student", "Librarian", "Other"])
+    if st.button("Sign Up"):
+        for user in users:
+            if user["email"] == email:
+                st.error("User already exists")
+                return None
+        user = {"name": name, "mobile": mobile, "email": email, "password": password, "role": role, "booklist": []}
+        users.append(user)
+        st.success("Account created. Please login.")
+        save_data(books, users, issued)
+        return None
+    return None
+
+def view_books(books, user):
+    st.subheader("📚 View All Books")
     for book in books:
-        with st.expander(f"{book['title']} by {book['author']}"):
-            st.image(book['cover'], width=150)
-            st.write(f"**Description**: {book['description']}")
-            st.write(f"**Availability**: {'Available' if book['status'] == 'available' else 'Issued'}")
-            st.write(f"**Index**: {book.get('index', 'N/A')}")
-            if current_user:
-                if book['status'] == 'available':
-                    if st.button(f"Add to My Booklist - {book['id']}"):
-                        if book['id'] not in current_user['book_list']:
-                            current_user['book_list'].append(book['id'])
-                            save_json(USERS_FILE, users)
-                            st.success("Book added to your list!")
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            st.image(book.get("cover", ""), width=100)
+        with col2:
+            st.markdown(f"### {book['title']}")
+            st.write(f"**Author:** {book['author']}")
+            st.write(f"**Available:** {'✅' if book['available'] else '❌'}")
+            st.write(book['description'])
+            with st.expander("📖 View Index"):
+                st.code(book['index'])
+            if user['role'] != "Librarian":
+                if st.button(f"➕ Add to Booklist", key=f"add_{book['id']}"):
+                    if book['id'] not in user['booklist']:
+                        user['booklist'].append(book['id'])
+                        st.success("Added to your booklist")
 
-# ===================== ADD NEW BOOK =====================
 def add_book(books):
-    st.subheader("➕ Add New Book")
-    title = st.text_input("Book Title")
+    st.subheader("➕ Add New Book (Librarian Only)")
+    title = st.text_input("Title")
     author = st.text_input("Author")
-    description = st.text_area("Book Description")
-    index = st.text_area("Index Page Content")
+    description = st.text_area("Description")
+    index = st.text_area("Index")
     cover = st.text_input("Cover Image URL")
     if st.button("Add Book"):
-        bid = max([b['id'] for b in books], default=0) + 1
-        books.append({"id": bid, "title": title, "author": author, "description": description, "cover": cover, "index": index, "status": "available"})
-        save_json(BOOKS_FILE, books)
-        st.success("Book added successfully!")
+        book_id = max([b['id'] for b in books], default=0) + 1
+        books.append({"id": book_id, "title": title, "author": author, "description": description,
+                      "index": index, "cover": cover, "available": True})
+        st.success("Book added successfully")
+        save_data(books, users, issued)
 
-# ===================== DELETE BOOK =====================
 def delete_book(books):
-    st.subheader("🗑 Delete Book")
-    book_titles = [f"{b['id']}: {b['title']}" for b in books]
-    selected = st.selectbox("Select a Book to Delete", book_titles)
-    if st.button("Delete"):
-        bid = int(selected.split(':')[0])
-        books = [b for b in books if b['id'] != bid]
-        save_json(BOOKS_FILE, books)
-        st.success("Book deleted.")
+    st.subheader("🗑 Delete Book (Librarian Only)")
+    book_ids = [f"{b['id']} - {b['title']}" for b in books]
+    book_select = st.selectbox("Select book to delete", book_ids)
+    if st.button("Delete Book"):
+        book_id = int(book_select.split(" - ")[0])
+        books[:] = [b for b in books if b['id'] != book_id]
+        st.success("Book deleted successfully")
+        save_data(books, users, issued)
 
-# ===================== ISSUE BOOK =====================
-def issue_book(current_user, books, issued):
-    st.subheader("📦 Issue a Book from Your List")
-    available_books = [b for b in books if b['id'] in current_user['book_list'] and b['status'] == 'available']
-    if not available_books:
-        st.info("No available books in your book list.")
-        return
-    book_titles = [f"{b['id']}: {b['title']}" for b in available_books]
-    selected = st.selectbox("Select Book to Issue", book_titles)
+def issue_book(books, issued, user):
+    st.subheader("📤 Issue Book")
+    available_books = [b for b in books if b['available']]
+    book_ids = [f"{b['id']} - {b['title']}" for b in available_books]
+    book_select = st.selectbox("Select book to issue", book_ids)
     if st.button("Issue Book"):
-        bid = int(selected.split(':')[0])
+        book_id = int(book_select.split(" - ")[0])
         for b in books:
-            if b['id'] == bid:
-                b['status'] = 'issued'
-        due_date = (datetime.now() + timedelta(days=14)).strftime('%Y-%m-%d')
-        issued.append({"email": current_user['email'], "book_id": bid, "issue_date": datetime.now().strftime('%Y-%m-%d'), "due_date": due_date})
-        current_user['book_list'].remove(bid)
+            if b['id'] == book_id:
+                b['available'] = False
+        issued.append({"book_id": book_id, "user_email": user['email'], "issue_date": datetime.now().strftime("%Y-%m-%d"),
+                       "return_by": (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d")})
+        st.success("Book issued. Return within 14 days.")
         save_data(books, users, issued)
-        st.success(f"Book issued! Return by {due_date}.")
 
-# ===================== RETURN BOOK =====================
-def return_book(current_user, books, issued):
-    st.subheader("📥 Return a Book")
-    my_issued = [i for i in issued if i['email'] == current_user['email']]
-    if not my_issued:
-        st.info("You have no issued books.")
+def return_book(books, issued, user):
+    st.subheader("📥 Return Book")
+    user_issued = [i for i in issued if i['user_email'] == user['email']]
+    book_titles = [f"{i['book_id']} - {[b['title'] for b in books if b['id'] == i['book_id']][0]}" for i in user_issued]
+    if not book_titles:
+        st.info("No books to return.")
         return
-    book_titles = [f"{i['book_id']}: {[b['title'] for b in books if b['id']==i['book_id']][0]}" for i in my_issued]
-    selected = st.selectbox("Select Book to Return", book_titles)
+    book_select = st.selectbox("Select book to return", book_titles)
     if st.button("Return Book"):
-        bid = int(selected.split(':')[0])
-        issued[:] = [i for i in issued if not (i['email'] == current_user['email'] and i['book_id'] == bid)]
+        book_id = int(book_select.split(" - ")[0])
+        issued[:] = [i for i in issued if not (i['book_id'] == book_id and i['user_email'] == user['email'])]
         for b in books:
-            if b['id'] == bid:
-                b['status'] = 'available'
-        save_data(books, users, issued)
+            if b['id'] == book_id:
+                b['available'] = True
         st.success("Book returned.")
+        save_data(books, users, issued)
 
-# ===================== VIEW ISSUED BOOKS =====================
-def view_issued_books(current_user, books, issued):
-    st.subheader("📋 Your Issued Books")
-    my_issued = [i for i in issued if i['email'] == current_user['email']]
-    for entry in my_issued:
-        book = next((b for b in books if b['id'] == entry['book_id']), None)
+def view_issued_books(books, issued):
+    st.subheader("📖 Issued Books Overview")
+    for i in issued:
+        book = next((b for b in books if b['id'] == i['book_id']), None)
         if book:
-            st.markdown(f"**{book['title']}** - Due on `{entry['due_date']}`")
+            st.markdown(f"**{book['title']}** issued to `{i['user_email']}` | Return by: `{i['return_by']}`")
 
-# ===================== BOOK RECOMMENDATION =====================
-def recommend_books(current_user, books, issued):
-    st.subheader("🤖 Recommended Books")
-    last_issued = [i for i in issued if i['email'] == current_user['email']]
-    if not last_issued:
-        st.info("No past history found.")
+def recommend_books(user, books, issued):
+    st.subheader("🔍 Book Recommendations")
+    prev_ids = [i['book_id'] for i in issued if i['user_email'] == user['email']]
+    prev_books = [b for b in books if b['id'] in prev_ids]
+    if not prev_books:
+        st.info("Issue some books to get recommendations.")
         return
-    last_book_id = last_issued[-1]['book_id']
-    last_book = next((b for b in books if b['id'] == last_book_id), None)
-    if last_book:
-        recs = [b for b in books if last_book['author'] == b['author'] and b['id'] != last_book_id and b['status'] == 'available']
-        for r in recs:
-            st.markdown(f"**{r['title']}** by {r['author']}")
+    last_title = prev_books[-1]['title']
+    st.write(f"Because you read **{last_title}**, you might also like:")
+    for book in books:
+        if book['id'] not in prev_ids:
+            st.markdown(f"- {book['title']} by {book['author']}")
 
-# ===================== MAIN APP =====================
 def main():
-    st.title("📚 Library Management System")
     global books, users, issued
+    st.title("📚 Library Management System")
+
     books, users, issued = load_data()
 
-    if 'user' not in st.session_state:
-        menu = st.sidebar.radio("Menu", ["Login", "Sign Up"])
-        if menu == "Sign Up":
-            signup(users)
-        else:
-            login(users)
-    else:
-        user = st.session_state['user']
-        menu = st.sidebar.radio("Navigate", ["View Books", "My Book List", "Issue Book", "Return Book", "Issued Books", "Recommendations"] + (["Add Book", "Delete Book"] if user['role'] == "Librarian" else []))
+    menu = ["Login", "Sign Up"]
+    choice = st.sidebar.selectbox("Menu", menu)
 
-        if menu == "View Books":
+    user = None
+    if choice == "Login":
+        user = login(users)
+    elif choice == "Sign Up":
+        user = signup(users)
+
+    if user:
+        tab = st.sidebar.selectbox("Features", ["View Books", "Issue Book", "Return Book",
+                                                 "View Issued Books", "Book Recommendations"] +
+                                                (["Add Book", "Delete Book"] if user['role'] == "Librarian" else []))
+
+        if tab == "View Books":
             view_books(books, user)
-        elif menu == "Add Book":
+        elif tab == "Add Book":
             add_book(books)
-        elif menu == "Delete Book":
+        elif tab == "Delete Book":
             delete_book(books)
-        elif menu == "My Book List":
-            st.json(user['book_list'])
-        elif menu == "Issue Book":
-            issue_book(user, books, issued)
-        elif menu == "Return Book":
-            return_book(user, books, issued)
-        elif menu == "Issued Books":
-            view_issued_books(user, books, issued)
-        elif menu == "Recommendations":
+        elif tab == "Issue Book":
+            issue_book(books, issued, user)
+        elif tab == "Return Book":
+            return_book(books, issued, user)
+        elif tab == "View Issued Books":
+            view_issued_books(books, issued)
+        elif tab == "Book Recommendations":
             recommend_books(user, books, issued)
 
-main()
+if __name__ == '__main__':
+    main()
