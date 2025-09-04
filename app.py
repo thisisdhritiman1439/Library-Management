@@ -1,201 +1,681 @@
-import streamlit as st
+from fastapi import FastAPI
+import uvicorn
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "📚 Library Management System API running"}
+
+@app.post("/signup")
+def signup(name: str, email: str, password: str, role: str = "user"):
+    ok, msg = signup_user(name, "0000000000", email, password, role)
+    return {"success": ok, "message": msg}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
 import json
 import os
-from datetime import datetime, timedelta
+import shutil
+import time
+import hashlib
+import re
+from datetime import date, datetime, timedelta
+from typing import List, Dict, Any
 
-# --------------------------- Utility Functions --------------------------- #
+# -------------------------
+# Config & filenames
+# -------------------------
+BOOKS_FILE = "books_data.json"
+USERS_FILE = "users.json"
+ISSUED_FILE = "issued_books.json"
 
-def load_data():
+FINE_PER_DAY = 10
+DEFAULT_LOAN_DAYS = 14
+APP_TITLE = "📚 Library Management System"
+
+# -------------------------
+# Safe JSON helpers
+# -------------------------
+def is_strong_password(password: str) -> (bool, str):
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long."
+    if not re.search(r"[A-Z]", password):
+        return False, "Password must include at least one uppercase letter."
+    if not re.search(r"[a-z]", password):
+        return False, "Password must include at least one lowercase letter."
+    if not re.search(r"[0-9]", password):
+        return False, "Password must include at least one number."
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+        return False, "Password must include at least one special character."
+    return True, ""
+    
+def backup_corrupt_file(path: str):
     try:
-        with open("books.json") as f:
-            books = json.load(f)
-    except:
-        books = []
+        ts = int(time.time())
+        bak = f"{path}.corrupt.{ts}"
+        shutil.copy(path, bak)
+    except Exception:
+        pass
 
+def save_json(path: str, data: Any):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+def load_json(path: str, default):
+    if not os.path.exists(path):
+        save_json(path, default)
+        return default
     try:
-        with open("users.json") as f:
-            users = json.load(f)
-    except:
-        users = []
+        if os.path.getsize(path) == 0:
+            save_json(path, default)
+            return default
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        backup_corrupt_file(path)
+        save_json(path, default)
+        return default
+    except Exception:
+        return default
 
-    try:
-        with open("issued_books.json") as f:
-            issued = json.load(f)
-    except:
-        issued = []
+# -------------------------
+# Bootstrapping initial data
+# -------------------------
+def bootstrap_files():
+    sample_books = [
+        {
+            "id": 1,
+            "title": "To Kill a Mockingbird",
+            "author": "Harper Lee",
+            "cover_url": "https://m.media-amazon.com/images/I/81gepf1eMqL.jpg",
+            "description": "A classic novel exploring racial injustice and moral growth in the Deep South.",
+            "index": ["Chapter 1: Maycomb", "Chapter 2: The Radley Place", "Chapter 3: Atticus’ Advice"],
+            "genre": ["Classic Fiction"],
+            "keywords": ["justice", "racism", "law"],
+            "available": True,
+            "added_on": str(date.today() - timedelta(days=40))
+        },
+        {
+            "id": 2,
+            "title": "Clean Code",
+            "author": "Robert C. Martin",
+            "cover_url": "https://images-na.ssl-images-amazon.com/images/I/41xShlnTZTL._SX374_BO1,204,203,200_.jpg",
+            "description": "A handbook of agile software craftsmanship.",
+            "index": ["Meaningful Names", "Functions", "Formatting", "Objects and Data Structures"],
+            "genre": ["Software Engineering"],
+            "keywords": ["programming", "best practices", "code"],
+            "available": True,
+            "added_on": str(date.today() - timedelta(days=30))
+        },
+        {
+            "id": 3,
+            "title": "Python Crash Course",
+            "author": "Eric Matthes",
+            "cover_url": "https://images-na.ssl-images-amazon.com/images/I/51BpsT0LfJL._SX376_BO1,204,203,200_.jpg",
+            "description": "A hands-on introduction to programming with Python.",
+            "index": ["Getting Started", "Variables", "Loops", "Functions", "Projects"],
+            "genre": ["Programming"],
+            "keywords": ["python", "beginner", "projects"],
+            "available": True,
+            "added_on": str(date.today() - timedelta(days=7))
+        },
+    ]
+    sample_users = [
+        {
+            "name": "Head Librarian",
+            "email": "librarian@example.com",
+            "mobile": "9999999999",
+            "password_hash": hashlib.sha256("admin123".encode()).hexdigest(),
+            "role": "librarian",
+            "favorites": []
+        },
+        {
+            "name": "Demo User",
+            "email": "user@example.com",
+            "mobile": "8888888888",
+            "password_hash": hashlib.sha256("user123".encode()).hexdigest(),
+            "role": "user",
+            "favorites": []
+        }
+    ]
+    sample_issued = []
+    load_json(BOOKS_FILE, sample_books)
+    load_json(USERS_FILE, sample_users)
+    load_json(ISSUED_FILE, sample_issued)
 
-    return books, users, issued
+# -------------------------
+# Data helpers
+# -------------------------
+def get_books() -> List[Dict[str,Any]]:
+    return load_json(BOOKS_FILE, [])
 
-def save_data(books, users, issued):
-    with open("books.json", "w") as f:
-        json.dump(books, f, indent=4)
-    with open("users.json", "w") as f:
-        json.dump(users, f, indent=4)
-    with open("issued_books.json", "w") as f:
-        json.dump(issued, f, indent=4)
+def save_books(data: List[Dict[str,Any]]):
+    save_json(BOOKS_FILE, data)
 
-# --------------------------- Main Application --------------------------- #
+def get_users() -> List[Dict[str,Any]]:
+    return load_json(USERS_FILE, [])
 
-def login(users):
-    st.subheader("🔐 Login")
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
-    if st.button("Login"):
-        for user in users:
-            if user["email"] == email and user["password"] == password:
-                st.success(f"Welcome {user['name']} ({user['role']})!")
-                return user
-        st.error("Invalid credentials")
+def save_users(data: List[Dict[str,Any]]):
+    save_json(USERS_FILE, data)
+
+def get_issued() -> List[Dict[str,Any]]:
+    return load_json(ISSUED_FILE, [])
+
+def save_issued(data: List[Dict[str,Any]]):
+    save_json(ISSUED_FILE, data)
+
+# -------------------------
+# Auth
+# -------------------------
+def hash_password(password: str) -> str:
+    return hashlib.sha256(password.encode()).hexdigest()
+
+def signup_user(name: str, mobile: str, email: str, password: str, role: str) -> (bool,str):
+    users = get_users()
+    email_l = email.strip().lower()
+    ok, msg = is_strong_password(password)
+    if not ok:
+        return False, msg
+
+    if any(u['email'].lower() == email_l for u in users):
+        return False, "Email already registered."
+    users.append({
+        "name": name.strip(),
+        "mobile": mobile.strip(),
+        "email": email_l,
+        "password_hash": hash_password(password),
+        "role": role,
+        "favorites": []
+    })
+    save_users(users)
+    return True, "Account created."
+
+def login_user(email: str, password: str):
+    users = get_users()
+    email_l = email.strip().lower()
+    phash = hash_password(password)
+    for u in users:
+        if u['email'].lower() == email_l and u['password_hash'] == phash:
+            return {k: v for k,v in u.items() if k != 'password_hash'}
     return None
 
-def signup(users):
-    st.subheader("📝 Sign Up")
-    name = st.text_input("Name")
-    mobile = st.text_input("Mobile")
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
-    role = st.selectbox("Role", ["Student", "Librarian", "Other"])
-    if st.button("Sign Up"):
-        for user in users:
-            if user["email"] == email:
-                st.error("User already exists")
-                return None
-        user = {"name": name, "mobile": mobile, "email": email, "password": password, "role": role, "booklist": []}
-        users.append(user)
-        st.success("Account created. Please login.")
-        save_data(books, users, issued)
-        return None
-    return None
+# -------------------------
+# Issue / Return
+# -------------------------
+def issue_book_to_user(user_email: str, book_id: int, loan_days: int = DEFAULT_LOAN_DAYS) -> (bool,str):
+    books = get_books()
+    issued = get_issued()
+    book = next((b for b in books if b['id'] == book_id), None)
+    if not book:
+        return False, "Book not found."
+    if not book.get('available', True):
+        return False, "Book currently not available."
 
-def view_books(books, user):
-    st.subheader("📚 View All Books")
-    for book in books:
-        col1, col2 = st.columns([1, 3])
-        with col1:
-            st.image(book.get("cover", ""), width=100)
-        with col2:
-            st.markdown(f"### {book['title']}")
-            st.write(f"**Author:** {book['author']}")
-            st.write(f"**Available:** {'✅' if book['available'] else '❌'}")
-            st.write(book['description'])
-            with st.expander("📖 View Index"):
-                st.code(book['index'])
-            if user['role'] != "Librarian":
-                if st.button(f"➕ Add to Booklist", key=f"add_{book['id']}"):
-                    if book['id'] not in user['booklist']:
-                        user['booklist'].append(book['id'])
-                        st.success("Added to your booklist")
+    # set availability + who holds it (optional)
+    for b in books:
+        if b['id'] == book_id:
+            b['available'] = False
+            b['issued_to'] = user_email.lower()
+    save_books(books)
 
-def add_book(books):
-    st.subheader("➕ Add New Book (Librarian Only)")
-    title = st.text_input("Title")
-    author = st.text_input("Author")
-    description = st.text_area("Description")
-    index = st.text_area("Index")
-    cover = st.text_input("Cover Image URL")
-    if st.button("Add Book"):
-        book_id = max([b['id'] for b in books], default=0) + 1
-        books.append({"id": book_id, "title": title, "author": author, "description": description,
-                      "index": index, "cover": cover, "available": True})
-        st.success("Book added successfully")
-        save_data(books, users, issued)
+    today = date.today()
+    due = today + timedelta(days=loan_days)
+    issued.append({
+        "user_email": user_email.lower(),
+        "book_id": book_id,
+        "issue_date": str(today),
+        "due_date": str(due),
+        "returned": False,
+        "return_date": None
+    })
+    save_issued(issued)
+    return True, f"Issued '{book['title']}'. Due on {due.isoformat()}."
 
-def delete_book(books):
-    st.subheader("🗑 Delete Book (Librarian Only)")
-    book_ids = [f"{b['id']} - {b['title']}" for b in books]
-    book_select = st.selectbox("Select book to delete", book_ids)
-    if st.button("Delete Book"):
-        book_id = int(book_select.split(" - ")[0])
-        books[:] = [b for b in books if b['id'] != book_id]
-        st.success("Book deleted successfully")
-        save_data(books, users, issued)
 
-def issue_book(books, issued, user):
-    st.subheader("📤 Issue Book")
-    available_books = [b for b in books if b['available']]
-    book_ids = [f"{b['id']} - {b['title']}" for b in available_books]
-    book_select = st.selectbox("Select book to issue", book_ids)
-    if st.button("Issue Book"):
-        book_id = int(book_select.split(" - ")[0])
+def return_book_from_user(user_email: str, book_id: int) -> (bool,str,int):
+    books = get_books()
+    issued = get_issued()
+    rec = next((r for r in issued if r['user_email'].lower() == user_email.lower() and r['book_id'] == book_id and not r['returned']), None)
+    if not rec:
+        return False, "No active issue found for this user & book.", 0
+    today = date.today()
+    due = datetime.fromisoformat(rec['due_date']).date()
+    fine = (today - due).days * FINE_PER_DAY if today > due else 0
+    rec['returned'] = True
+    rec['return_date'] = str(today)
+    save_issued(issued)
+    for b in books:
+        if b['id'] == book_id:
+            b['available'] = True
+            b.pop('issued_to', None)
+    save_books(books)
+    return True, "Book returned.", max(0, fine)
+
+def user_active_issues(user_email: str) -> List[Dict[str,Any]]:
+    return [r for r in get_issued() if r['user_email'].lower() == user_email.lower() and not r.get('returned', False)]
+
+def calculate_fine_for_record(rec: Dict[str,Any]) -> int:
+    due = datetime.fromisoformat(rec['due_date']).date()
+    today = date.today()
+    return max(0, (today - due).days * FINE_PER_DAY) if today > due else 0
+
+# -------------------------
+# Recommendations & Chatbot
+# -------------------------
+def recommend_for_user(user_email: str, top_k: int = 6) -> List[Dict[str,Any]]:
+    books = get_books()
+    users = get_users()
+    user = next((u for u in users if u['email'].lower() == user_email.lower()), {})
+    fav_ids = user.get('favorites', [])
+    issued = user_active_issues(user_email)
+    genres = set()
+    for b in books:
+        if b['id'] in fav_ids or any(r['book_id']==b['id'] for r in issued):
+            genres.update(b.get('genre',[]))
+    def score(b):
+        s = 0
+        if any(g in b.get('genre',[]) for g in genres):
+            s += 2
+        if b.get('available', False):
+            s += 1
+        return s
+    ranked = sorted(books, key=score, reverse=True)
+    return ranked[:top_k]
+def chatbot_response_for_user(user_email: str, message: str) -> str:
+    m = message.strip().lower()
+    if not m:
+        return "Ask me for book recommendations, or how to issue/return books."
+
+    # Book recommendation by user interest keywords
+    if "recommend" in m or "suggest" in m:
+        keywords = m.replace("recommend","").replace("suggest","").strip().split()
+        books = get_books()
+        # filter books by keywords in title, genre, or description
+        recs = []
         for b in books:
-            if b['id'] == book_id:
-                b['available'] = False
-        issued.append({"book_id": book_id, "user_email": user['email'], "issue_date": datetime.now().strftime("%Y-%m-%d"),
-                       "return_by": (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d")})
-        st.success("Book issued. Return within 14 days.")
-        save_data(books, users, issued)
+            text = (b.get('title','') + ' ' + ' '.join(b.get('genre',[])) + ' ' + b.get('description','')).lower()
+            if any(k in text for k in keywords) and b.get('available', False):
+                recs.append(b)
+        # fallback to previous issued or favorites
+        if not recs:
+            recs = recommend_for_user(user_email, top_k=3)
+        if not recs:
+            return "No recommendations found right now. Try another keyword."
+        return "I suggest:\n" + "\n".join([f"- {r['title']} by {r['author']}" for r in recs])
 
-def return_book(books, issued, user):
-    st.subheader("📥 Return Book")
-    user_issued = [i for i in issued if i['user_email'] == user['email']]
-    book_titles = [f"{i['book_id']} - {[b['title'] for b in books if b['id'] == i['book_id']][0]}" for i in user_issued]
-    if not book_titles:
-        st.info("No books to return.")
-        return
-    book_select = st.selectbox("Select book to return", book_titles)
-    if st.button("Return Book"):
-        book_id = int(book_select.split(" - ")[0])
-        issued[:] = [i for i in issued if not (i['book_id'] == book_id and i['user_email'] == user['email'])]
-        for b in books:
-            if b['id'] == book_id:
-                b['available'] = True
-        st.success("Book returned.")
-        save_data(books, users, issued)
+    if "how to issue" in m or "issue a book" in m:
+        return "Go to 'All Books', then click the Issue button (only available for Users)."
 
-def view_issued_books(books, issued):
-    st.subheader("📖 Issued Books Overview")
-    for i in issued:
-        book = next((b for b in books if b['id'] == i['book_id']), None)
-        if book:
-            st.markdown(f"**{book['title']}** issued to `{i['user_email']}` | Return by: `{i['return_by']}`")
+    if "how to return" in m or "return a book" in m:
+        return "Go to 'Issued Books' and click Return next to the book you want to return."
 
-def recommend_books(user, books, issued):
-    st.subheader("🔍 Book Recommendations")
-    prev_ids = [i['book_id'] for i in issued if i['user_email'] == user['email']]
-    prev_books = [b for b in books if b['id'] in prev_ids]
-    if not prev_books:
-        st.info("Issue some books to get recommendations.")
-        return
-    last_title = prev_books[-1]['title']
-    st.write(f"Because you read **{last_title}**, you might also like:")
-    for book in books:
-        if book['id'] not in prev_ids:
-            st.markdown(f"- {book['title']} by {book['author']}")
+    if "genres" in m or "categories" in m:
+        genres = sorted({g for b in get_books() for g in b.get('genre',[])} )
+        return "Available genres: " + ", ".join(genres) if genres else "No genre data available."
 
-def main():
-    global books, users, issued
-    st.title("📚 Library Management System")
+    if any(x in m for x in ["hi","hello","hey"]):
+        return "Hello! I'm the Chatbot. Try: 'Recommend Python books', 'How to issue a book', or 'What genres are available?'."
 
-    books, users, issued = load_data()
+    return "Sorry — I didn't understand. Try: 'Recommend Python books', 'How to issue a book', or 'What genres are available?'."
 
-    menu = ["Login", "Sign Up"]
-    choice = st.sidebar.selectbox("Menu", menu)
 
-    user = None
-    if choice == "Login":
-        user = login(users)
-    elif choice == "Sign Up":
-        user = signup(users)
+# -------------------------
+# UI helpers
+# -------------------------
+def book_card_ui(book: Dict[str, Any], current_user_email: str):
+    cols = st.columns([1, 3])
 
-    if user:
-        tab = st.sidebar.selectbox("Features", ["View Books", "Issue Book", "Return Book",
-                                                 "View Issued Books", "Book Recommendations"] +
-                                                (["Add Book", "Delete Book"] if user['role'] == "Librarian" else []))
+    # LEFT: cover
+    with cols[0]:
+        if book.get('cover_url'):
+            try:
+                st.image(book['cover_url'], width=110)
+            except Exception:
+                st.write("[No Image]")
 
-        if tab == "View Books":
-            view_books(books, user)
-        elif tab == "Add Book":
-            add_book(books)
-        elif tab == "Delete Book":
-            delete_book(books)
-        elif tab == "Issue Book":
-            issue_book(books, issued, user)
-        elif tab == "Return Book":
-            return_book(books, issued, user)
-        elif tab == "View Issued Books":
-            view_issued_books(books, issued)
-        elif tab == "Book Recommendations":
-            recommend_books(user, books, issued)
+    # RIGHT: details + actions
+    with cols[1]:
+        st.markdown(f"### {book['title']}")
+        genres = book.get('genre', [])
+        if isinstance(genres, str):
+            genres = [genres]
+        st.markdown(f"*Genre:* {', '.join(genres)}")
+        desc = book.get('description', '')
+        st.write(desc[:400] + ("…" if len(desc) > 400 else ""))
+        st.write(f"*Available:* {'✅ Yes' if book.get('available', True) else '❌ No'}")
 
-if __name__ == '__main__':
-    main()
+        c1, c2, c3 = st.columns([1, 1, 1])
+
+        # --- check if this user already issued this book ---
+        issued_records = get_issued()
+        active_for_user = any(
+            r for r in issued_records
+            if r['book_id'] == book['id']
+            and r['user_email'].lower() == current_user_email.lower()
+            and not r.get('returned', False)
+        )
+
+        # ---------- Issue flow ----------
+        with c1:
+            issue_key       = f"issue_{book['id']}_{current_user_email}"
+            confirm_flag    = f"confirm_{book['id']}_{current_user_email}"
+            radio_key       = f"radio_{book['id']}_{current_user_email}"
+            confirm_btn_key = f"confirm_btn_{book['id']}_{current_user_email}"
+
+            if active_for_user:
+                st.success("✅ Already issued by you")
+
+            elif book.get("available", True):
+                # Step 1: show Issue button
+                if st.button("📥 Issue", key=issue_key):
+                    st.session_state[confirm_flag] = True
+
+                # Step 2: show confirmation (Yes/No + Confirm)
+                if st.session_state.get(confirm_flag, False):
+                    st.write(f"Are you sure you want to issue '{book['title']}'?")
+                    choice = st.radio("Choose an option:", ["No", "Yes"], key=radio_key)
+                    if st.button("Confirm", key=confirm_btn_key):
+                        if choice == "Yes":
+                            ok, msg = issue_book_to_user(current_user_email, book['id'])
+                            if ok:
+                                st.success(msg)
+                                st.session_state[confirm_flag] = False
+                                st.rerun()
+                            else:
+                                st.error(msg)
+                        else:
+                            st.info("❌ Issue cancelled.")
+                            st.session_state[confirm_flag] = False
+
+            else:
+                st.info("❌ Already issued")
+
+        # ---------- Favorites ----------
+        with c2:
+            if st.button("⭐ Add to Favorites", key=f"fav_{book['id']}_{current_user_email}"):
+                users = get_users()
+                for u in users:
+                    if u['email'].lower() == current_user_email.lower():
+                        u.setdefault('favorites', [])
+                        if book['id'] not in u['favorites']:
+                            u['favorites'].append(book['id'])
+                            save_users(users)
+                            st.session_state['user'] = {
+                                k: v for k, v in u.items() if k != 'password_hash'
+                            }
+                            st.success("Added to favorites.")
+                        else:
+                            st.info("Already in favorites.")
+                st.rerun()
+
+        # ---------- Overview ----------
+        with c3:
+            with st.expander("🔎 Overview"):
+                if book.get('cover_url'):
+                    st.image(book['cover_url'], width=150)
+                st.markdown(f"*Title:* {book.get('title','')}")
+                st.markdown(f"*Author:* {book.get('author','')}")
+                genres2 = book.get('genre', [])
+                if isinstance(genres2, str):
+                    genres2 = [genres2]
+                st.markdown(f"*Genre:* {', '.join(genres2)}")
+                st.markdown("*Description:*")
+                st.write(book.get('description',''))
+                if book.get('index'):
+                    st.markdown("*Index:*")
+                    for idx in book.get('index', []):
+                        st.write(f"- {idx}")
+
+# -------------------------
+# Main app
+# -------------------------
+def app():
+    st.set_page_config(page_title=APP_TITLE, layout="wide")
+    st.title(APP_TITLE)
+    bootstrap_files()
+    if 'user' not in st.session_state:
+        st.session_state['user'] = None
+    if 'view_book' not in st.session_state:
+        st.session_state['view_book'] = None
+
+    # --------- Login/Signup ---------
+    if st.session_state['user'] is None:
+        left,right = st.columns([2,1])
+        with left:
+            st.markdown("Welcome — login or sign up. Demo: user@example.com / user123")
+        with right:
+            choice = st.selectbox("Action", ["Login","Sign Up"], key="auth_choice")
+        if choice=="Sign Up":
+            st.header("Create account")
+            name = st.text_input("Full name", key="su_name")
+            mobile = st.text_input("Mobile number", key="su_mobile")
+            email = st.text_input("Email", key="su_email")
+            password = st.text_input("Password", type="password", key="su_pass")
+            role = st.selectbox("Role", ["user","librarian"], key="su_role")
+            if st.button("Create Account"):
+                ok,msg = signup_user(name,mobile,email,password,role)
+                if ok: st.success(msg + " Please login.")
+                else: st.error(msg)
+        else:
+            st.header("Login")
+            email = st.text_input("Email", key="li_email")
+            password = st.text_input("Password", type="password", key="li_pass")
+            if st.button("Login"):
+                user = login_user(email,password)
+                if user:
+                    st.session_state['user'] = user
+                    st.success(f"Welcome {user['name']}")
+                    st.rerun()
+                else:
+                    st.error("Invalid credentials")
+        st.stop()
+
+    current_user = st.session_state['user']
+
+    st.sidebar.markdown(f"### 👤 {current_user['name']}")
+    st.sidebar.markdown(f"*Role:* {current_user['role'].capitalize()}")
+    st.sidebar.markdown("---")
+
+    # Notifications
+    notes = []
+    user_issued = user_active_issues(current_user['email'])
+    for rec in user_issued:
+        due = datetime.fromisoformat(rec['due_date']).date()
+        days_left = (due - date.today()).days
+        book = next((b for b in get_books() if b['id']==rec['book_id']), None)
+        title = book['title'] if book else f"Book #{rec['book_id']}"
+        if days_left <= 3 and days_left > 0:
+            notes.append(f"⏳ {days_left} days left: {title} (due {rec['due_date']})")
+        if days_left < 0:
+            fine_now = calculate_fine_for_record(rec)
+            notes.append(f"⚠ Overdue: {title} — fine ₹{fine_now}")
+    if notes:
+        st.sidebar.markdown("#### 🔔 Notifications")
+        for n in notes:
+            st.sidebar.write(n)
+        st.sidebar.markdown("---")
+
+
+    # Chatbot
+    st.sidebar.markdown("### 🤖 Chatbot")
+    chat_q = st.sidebar.text_input("Ask (e.g. 'Recommend Python books')", key="chat_input")
+    if st.sidebar.button("Ask", key="chat_btn"):
+        if chat_q:
+            response = chatbot_response_for_user(current_user['email'], chat_q)
+            st.sidebar.info(response)
+
+    # Navigation
+    if current_user['role']=="user":
+        page = st.sidebar.radio("Navigate", ["Dashboard","All Books","Favorites","Issued Books","Recommendations","Account","Logout"])
+    else:
+        page = st.sidebar.radio("Navigate", ["Dashboard","All Books","Add Book","Delete Book","Issued Overview","Account","Logout"])
+
+    # ---------- Pages ----------
+    if page=="Logout":
+        st.session_state.clear()
+        st.rerun()
+
+    elif page=="Dashboard":
+        st.header("📊 Dashboard")
+        users = get_users()
+        u = next((x for x in users if x['email'].lower()==current_user['email'].lower()), current_user)
+        st.write(f"- ⭐ Favorites: *{len(u.get('favorites', []))}*")
+        st.write(f"- 📥 Active borrowed books: *{len(user_active_issues(current_user['email']))}*")
+
+    elif page=="All Books":
+        st.header("📚 All Books")
+        all_books = get_books()
+        q = st.text_input("Search by title / author / genre (press Enter)", key="search_books")
+        filtered = all_books
+        if q:
+            ql = q.lower()
+            filtered = [b for b in all_books if ql in b.get('title','').lower() or ql in b.get('author','').lower() or any(ql in g.lower() for g in b.get('genre',[]))]
+        for b in filtered:
+            book_card_ui(b, current_user['email'])
+            st.divider()
+
+        if st.session_state.get('view_book'):
+            bid = st.session_state['view_book']
+            b = next((x for x in all_books if x['id']==bid), None)
+            if b:
+                st.subheader(f"📖 Detailed Overview: {b['title']}")
+                st.image(b.get('cover_url',''), width=150)
+                st.markdown(f"*Author:* {b.get('author','')}")
+                st.markdown(f"*Genre:* {', '.join(b.get('genre',[]))}")
+                st.markdown("*Description:*")
+                st.write(b.get('description',''))
+                st.markdown("*Index:*")
+                for idx in b.get('index',[]): st.write(f"- {idx}")
+            if st.button("Close Overview", key="close_overview"):
+                st.session_state['view_book'] = None
+                st.rerun()
+
+    elif page=="Favorites":
+        st.header("⭐ Favorites")
+        fav_ids = current_user.get('favorites', [])
+        fav_books = [b for b in get_books() if b['id'] in fav_ids]
+        if not fav_books: st.info("No favorites yet.")
+        for b in fav_books:
+            book_card_ui(b, current_user['email'])
+            st.divider()
+
+    elif page=="Issued Books":
+        st.header("📥 Issued Books")
+        active = user_active_issues(current_user['email'])
+        if not active:
+            st.info("No active issues.")
+        for rec in active:
+            b = next((x for x in get_books() if x['id']==rec['book_id']), None)
+            if not b:
+                continue
+            st.markdown(f"### {b['title']} by {b['author']}")
+            st.write(f"*Issued on:* {rec['issue_date']}  |  *Due:* {rec['due_date']}")
+            fine_now = calculate_fine_for_record(rec)
+            if fine_now > 0:
+                st.warning(f"⚠ Fine so far: ₹{fine_now}")
+
+            # ✅ FIXED unique key for return button
+            if st.button("Return", key=f"return_{rec['book_id']}{current_user['email']}{rec['issue_date']}"):
+                ok, msg, fine = return_book_from_user(current_user['email'], rec['book_id'])
+                if ok:
+                    st.success(f"{msg}. Fine: ₹{fine}")
+                    st.rerun()
+                else:
+                    st.error(msg)
+
+
+    elif page=="Recommendations":
+        st.header("💡 Recommendations for you")
+        recs = recommend_for_user(current_user['email'], top_k=6)
+        for b in recs:
+            book_card_ui(b, current_user['email'])
+            st.divider()
+
+    # ---------- Librarian Pages ----------
+    elif page=="Add Book" and current_user['role']=="librarian":
+        st.header("➕ Add a New Book")
+        title = st.text_input("Title")
+        author = st.text_input("Author")
+        cover_url = st.text_input("Cover Image URL (optional)")
+        description = st.text_area("Description")
+        genres = st.text_input("Genres (comma separated)")
+        keywords = st.text_input("Keywords (comma separated)")
+
+        if st.button("Add Book"):
+            books = get_books()
+            new_id = max([b['id'] for b in books], default=0) + 1
+            new_book = {
+                "id": new_id,
+                "title": title.strip(),
+                "author": author.strip(),
+                "cover_url": cover_url.strip(),
+                "description": description.strip(),
+                "index": [],
+                "genre": [g.strip() for g in genres.split(",") if g.strip()],
+                "keywords": [k.strip() for k in keywords.split(",") if k.strip()],
+                "available": True,
+                "added_on": str(date.today())
+            }
+            books.append(new_book)
+            save_books(books)
+            st.success(f"Book '{title}' added successfully ✅")
+
+    elif page=="Delete Book" and current_user['role']=="librarian":
+        st.header("🗑 Delete a Book")
+        books = get_books()
+        titles = {b['title']: b['id'] for b in books}
+        choice = st.selectbox("Select book to delete", [""] + list(titles.keys()))
+        if choice and st.button("Delete"):
+            books = [b for b in books if b['id'] != titles[choice]]
+            save_books(books)
+            st.success(f"Book '{choice}' deleted successfully ✅")
+            st.rerun()
+
+    elif page=="Issued Overview" and current_user['role']=="librarian":
+        st.header("📖 Issued Books Overview")
+        issued = get_issued()
+        if not issued:
+            st.info("No issued books yet.")
+        else:
+            for rec in issued:
+                b = next((x for x in get_books() if x['id']==rec['book_id']), None)
+                if not b: continue
+                st.markdown(f"### {b['title']} by {b['author']}")
+                st.write(f"*Issued to:* {rec['user_email']}")
+                st.write(f"*Issued on:* {rec['issue_date']}  |  *Due:* {rec['due_date']}")
+                if rec['returned']:
+                    st.success(f"✅ Returned on {rec['return_date']}")
+                else:
+                    fine_now = calculate_fine_for_record(rec)
+                    if fine_now > 0:
+                        st.warning(f"⚠ Overdue — Fine so far: ₹{fine_now}")
+
+    elif page=="Account":
+        st.header("👤 Account Details")
+        st.write(f"*Name:* {current_user['name']}")
+        st.write(f"*Email:* {current_user['email']}")
+        st.write(f"*Mobile:* {current_user['mobile']}")
+        st.write(f"*Role:* {current_user['role']}")
+        if st.button("Change Password", key="chg_pass_btn"):
+            old = st.text_input("Current password", type="password", key="old_pass")
+            new = st.text_input("New password", type="password", key="new_pass")
+            confirm = st.text_input("Confirm new password", type="password", key="confirm_pass")
+            if st.button("Submit Password Change", key="submit_pass"):
+                users = get_users()
+                u = next((x for x in users if x['email'].lower()==current_user['email'].lower()), None)
+                if not u or u['password_hash'] != hash_password(old):
+                    st.error("Current password incorrect.")
+                elif new != confirm:
+                    st.error("New passwords do not match.")
+                else:
+                    u['password_hash'] = hash_password(new)
+                    save_users(users)
+                    st.success("Password changed successfully.")
+
+# -------------------------
+# Entry point
+# -------------------------
+if __name__ == "__main__":
+    app()
